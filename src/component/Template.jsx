@@ -14,13 +14,32 @@ const DefaultFieldTemplate = (props) => {
     children,
   } = props;
   const {
-    title,
     // type,
+    title,
+    description,
   } = schema;
+  const rtTitle = title || name;
+  const itemProps = {
+    ...(
+      rtTitle ? {
+        label: (
+          <strong>
+          {
+            rtTitle
+          }
+          </strong>
+        ),
+      } : {}
+    )
+  };
+
   return (
     <Form.Item
-      label={title || name}
+      {...itemProps}
     >
+      {
+        description
+      }
       {
         // ((type_) => {
         //   switch(type_) {
@@ -38,6 +57,7 @@ const DefaultFieldTemplate = (props) => {
         // })(type)
       }
       {
+    children,
         children
       }
     </Form.Item>
