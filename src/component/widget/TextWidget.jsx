@@ -5,13 +5,10 @@ import {
   Input,
 } from "antd";
 
-import {
-  getValueFromEvent,
-  // getValueFromPreventEvent,
-} from "../utils.jsx";
+import Value from "./Value.jsx";
 
 
-class TextWidget extends React.Component {
+class TextWidget extends Value {
   static defaultProps = {
     initialValue: undefined,
     value: undefined,
@@ -26,9 +23,7 @@ class TextWidget extends React.Component {
 
   constructor (props) {
     super (props);
-    this.state = {
-      value: props.initialValue || props.value || undefined,
-    };
+    this.state = (this.state || {});
     if (props.optimize && props.optimize.debounce) {
       let debounceArgs = props.optimize.debounce
       this.debounceTriggerChange = _.debounce(
@@ -39,38 +34,6 @@ class TextWidget extends React.Component {
     } else {
       this.debounceTriggerChange = null;
     }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.value != this.state.value) {
-      this.setState({
-        value: nextProps.value,
-      });
-    }
-  }
-
-  triggerChange = (value = this.state.value) => {
-    const { onChange, } = this.props;
-    onChange && onChange(value)
-    return
-  }
-
-  triggerQuickChange(event, callback=null) {
-    const newValue = getValueFromEvent(event);
-    this.setState(
-      update(
-        this.state,
-        {
-          value: {
-            $set: newValue,
-          }
-        }
-      ),
-      () => {
-        callback && callback();
-        this.debounceTriggerChange ? this.debounceTriggerChange() : this.triggerChange();
-      }
-    );
   }
 
   render() {
