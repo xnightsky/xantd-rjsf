@@ -1,5 +1,5 @@
 import TextWidget from "./TextWidget.jsx";
-import InputNumberWidget from "./InputNumberWidget.jsx"
+import NumberWidget from "./NumberWidget.jsx"
 import ArrayWidget from "./ArrayWidget.jsx";
 import NotExistWidget from "./NotExistWidget.jsx";
 import SwitchWidget from "./SwitchWidget.jsx";
@@ -7,7 +7,7 @@ import SwitchWidget from "./SwitchWidget.jsx";
 
 export default {
   TextWidget,
-  InputNumberWidget,
+  NumberWidget,
   ArrayWidget,
   SwitchWidget,
   NotExistWidget,

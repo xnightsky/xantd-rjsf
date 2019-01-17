@@ -152,20 +152,20 @@ const schema = {
         "default": "bazinga"
       }
     },
-    // "multipleChoicesList": {
-    //   "type": "array",
-    //   "title": "A multiple choices list",
-    //   "items": {
-    //     "type": "string",
-    //     "enum": [
-    //       "foo",
-    //       "bar",
-    //       "fuzz",
-    //       "qux"
-    //     ]
-    //   },
-    //   "uniqueItems": true
-    // },
+    "multipleChoicesList": {
+      "type": "array",
+      "title": "A multiple choices list",
+      "items": {
+        "type": "string",
+        // "enum": [
+        //   "foo",
+        //   "bar",
+        //   "fuzz",
+        //   "qux"
+        // ]
+      },
+      // "uniqueItems": true
+    },
     // "fixedItemsList": {
     //   "type": "array",
     //   "title": "A list of fixed items",
@@ -278,10 +278,10 @@ const initialValue = {
     "foo",
     "bar"
   ],
-  // "multipleChoicesList": [
-  //   "foo",
-  //   "bar"
-  // ],
+  "multipleChoicesList": [
+    "foo",
+    "bar"
+  ],
   // "fixedItemsList": [
   //   "Some text",
   //   true,

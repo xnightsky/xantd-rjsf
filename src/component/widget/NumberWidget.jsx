@@ -11,7 +11,7 @@ import {
 } from "../utils.jsx";
 
 
-function InputNumberWidget (props) {
+function NumberWidget (props) {
   const {
     ...restProps
   } = props;
@@ -23,4 +23,4 @@ function InputNumberWidget (props) {
 }
 
 
-export default InputNumberWidget;
+export default NumberWidget;

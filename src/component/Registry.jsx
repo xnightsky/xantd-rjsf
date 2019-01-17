@@ -31,12 +31,12 @@ const widgetMap = {
     select: "SelectWidget",
   },
   number: {
-    default: "InputNumberWidget",
+    default: "NumberWidget",
     text: "TextWidget",
     select: "SelectWidget",
   },
   integer: {
-    default: "InputNumberWidget",
+    default: "NumberWidget",
     text: "TextWidget",
     select: "SelectWidget",
   },
