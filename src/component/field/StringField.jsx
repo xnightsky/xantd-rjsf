@@ -10,7 +10,7 @@ import {
 import {
   isSelect,
   toSelectOptions,
-} from "../scheamUtils.jsx"
+} from "../schemaUtils.jsx"
 
 
 function StringField(props) {
