@@ -57,7 +57,6 @@ const DefaultFieldTemplate = (props) => {
         // })(type)
       }
       {
-    children,
         children
       }
     </Form.Item>
