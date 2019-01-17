@@ -3,7 +3,7 @@ import {
   Alert,
 } from "antd";
 
-import Demo from "../Demo.jsx";
+import Example from "../Example";
 
 
 class App extends Component {
@@ -12,7 +12,7 @@ class App extends Component {
             <div className="App">
               <Alert message="hello, react-json-schema-form" type="success" />
               <br />
-              <Demo />
+              <Example />
             </div>
         );
     }

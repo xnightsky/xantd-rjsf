@@ -10,12 +10,13 @@ import SchemaField from "./field/SchemaField.jsx";
 const DefaultFieldTemplate = (props) => {
   const {
     name,
-    schema: {
-      title,
-      type,
-    },
+    schema,
     children,
   } = props;
+  const {
+    title,
+    // type,
+  } = schema;
   return (
     <Form.Item
       label={title || name}
