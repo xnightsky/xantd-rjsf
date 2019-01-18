@@ -16,14 +16,29 @@ import {
 
 
 
+function getOptionsWithProps (props) {
+  const {
+    option: {
+      addable = true,
+      removable = true,
+      orderable = true,
+      ...restOptions
+    } = {},
+  } = props;
+  return {
+    addable,
+    removable,
+    orderable,
+    ...restOptions,
+  }
+}
+
 class ArrayWidget extends React.Component {
   static defaultProps = {
     value: null,
     onChange: null,
     defaultItem: null,
-    addable: true,
-    removable: true,
-    orderable: true,
+    option: getOptionsWithProps({}),
   };
 
   constructor(props) {
@@ -45,7 +60,9 @@ class ArrayWidget extends React.Component {
   }
 
   itemAdd = () => {
-    const { defaultItem, } = this.props;
+    const {
+      defaultItem,
+    } = this.props;
     this.setState(
       update(
         this.state,
@@ -121,9 +138,12 @@ class ArrayWidget extends React.Component {
   renderOperationPopover(element, index, indexLength) {
     const rthis = this;
     const {
+      // options,
+    } = rthis.props;
+    const {
       removable,
       orderable,
-    } = rthis.props;
+    } = getOptionsWithProps(this.props);
     // console.log("renderOperationPopover", element);
     return (
       <Popover
@@ -203,8 +223,11 @@ class ArrayWidget extends React.Component {
       // value,
       onChange,
       children,
-      addable,
+      // options,
     } = this.props;
+    const {
+      addable,
+    } = getOptionsWithProps(this.props);
     const {
       value: value,
     } = this.state;
