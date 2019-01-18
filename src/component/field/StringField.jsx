@@ -9,7 +9,7 @@ import {
 } from "../Registry.jsx";
 import {
   isSelect,
-  toSelectOptions,
+  toEnumOptions,
 } from "../schemaUtils.jsx"
 
 
@@ -19,18 +19,16 @@ function StringField(props) {
     registry = getDefaultRegistry(),
     ...restProps
   } = props;
-  const selectOptions = isSelect(schema) ? toSelectOptions(schema) : {}
-  const widgetName = _.isEmpty(selectOptions) ? "text" : "select";
+  const enumOptions = isSelect(schema) ? toEnumOptions(schema) : {}
+  const widgetName = _.isEmpty(enumOptions) ? "text" : "select";
   const Widget = getWidget(schema, widgetName);
-  const rtProps = {
-    ...selectOptions,
-  };
   return (
     <Widget
       schema={schema}
-      options={{}}
+      options={{
+        ...enumOptions
+      }}
       {...restProps}
-      {...rtProps}
     />
   );
 }

@@ -5,6 +5,10 @@ import {
   getWidget,
   getDefaultRegistry,
 } from "../Registry.jsx";
+import {
+  isMultipleChoices,
+  toEnumOptions,
+} from "../schemaUtils.jsx"
 
 
 function ArrayField(props) {
@@ -17,7 +21,21 @@ function ArrayField(props) {
     items,
   } = schema
   //
-  const Widget = getWidget(schema);
+  const enumOptions = isMultipleChoices(schema) ? toEnumOptions(schema.items) : {}
+  if (!_.isEmpty(enumOptions)) {
+    const Widget = getWidget(schema, "checkbox");
+    return (
+      <Widget
+        schema={schema}
+        options={{
+          ...enumOptions,
+        }}
+        {...restProps}
+      />
+    );
+  }
+  //
+  const Widget = getWidget(schema, "default");
   const SchemaFieldTemplate = registry.SchemaFieldTemplate;
   return (
     <Widget

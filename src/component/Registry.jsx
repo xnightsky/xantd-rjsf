@@ -42,6 +42,7 @@ const widgetMap = {
   },
   array: {
     default: "ArrayWidget",
+    checkbox: "CheckboxWidget",
   },
   object: {
     default: "NotExistWidget",

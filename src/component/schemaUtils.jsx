@@ -11,7 +11,7 @@ export function isSelect (schema) {
   return !!enumValue;
 }
 
-export function toSelectOptions(schema) {
+export function toEnumOptions(schema) {
   const {
     enum: enumValue = [],
     enumName = [],
@@ -29,6 +29,26 @@ export function toSelectOptions(schema) {
   return {
     enumOptions,
   };
+}
+
+
+export function isMultipleChoices(schema) {
+  const {
+    type,
+    items:{
+      enum: itemEnumValue,
+    } = {},
+    uniqueItems,
+  } = schema;
+  switch(type) {
+    case "array":
+      if (itemEnumValue && uniqueItems) {
+        return true;
+      }
+    default:
+      break;
+  }
+  return false
 }
 
 

@@ -164,7 +164,7 @@ const schema = {
           "qux"
         ]
       },
-      // "uniqueItems": true
+      "uniqueItems": true
     },
     // "fixedItemsList": {
     //   "type": "array",

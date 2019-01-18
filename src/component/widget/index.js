@@ -4,6 +4,7 @@ import NumberWidget from "./NumberWidget.jsx"
 import SwitchWidget from "./SwitchWidget.jsx";
 import ArrayWidget from "./ArrayWidget.jsx";
 import SelectWidget from "./SelectWidget.jsx";
+import CheckboxWidget from "./CheckboxWidget.jsx";
 
 
 export default {
@@ -13,4 +14,5 @@ export default {
   SwitchWidget,
   ArrayWidget,
   SelectWidget,
+  CheckboxWidget,
 }

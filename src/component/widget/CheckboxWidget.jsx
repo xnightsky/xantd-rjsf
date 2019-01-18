@@ -2,13 +2,13 @@ import _ from "lodash";
 import React from "react";
 import update from "immutability-helper";
 import {
-  Select,
+  Checkbox,
 } from "antd";
 
 import Value from "./Value.jsx";
 
 
-class SelectWidget extends Value {
+class CheckboxWidget extends Value {
   static defaultProps = {
     initialValue: undefined,
     value: undefined,
@@ -31,9 +31,9 @@ class SelectWidget extends Value {
       value: _value,
       onChange: _onChange,
       initialValue: _initialValue,
-      options:{
-        enumOptions,
-      } = {},
+      options: {
+        enumOptions
+      },
       style = {},
       ...restProps
     } = this.props;
@@ -41,7 +41,7 @@ class SelectWidget extends Value {
       value,
     } = this.state;
     return (
-      <Select
+      <Checkbox.Group
         style={{
           width: "100%",
           ...style,
@@ -50,26 +50,12 @@ class SelectWidget extends Value {
         onChange={(e) => {
           this.triggerQuickChange(e);
         }}
+        options={enumOptions}
         {...restProps}
-      >
-        {
-          (enumOptions || []).map((iopt) => {
-            return (
-              <Option
-                key={`${iopt.value}`}
-                value={iopt.value}
-              >
-              {
-                iopt.label
-              }
-              </Option>
-            )
-          })
-        }
-      </Select>
+      />
     );
   }
 }
 
 
-export default SelectWidget;
+export default CheckboxWidget;
