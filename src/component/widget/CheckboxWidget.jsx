@@ -13,12 +13,14 @@ class CheckboxWidget extends Value {
     initialValue: undefined,
     value: undefined,
     onChange: undefined,
-    enumOptions: [
-      // {
-      //   value,
-      //   label,
-      // }
-    ]
+    options: {
+      enumOptions: [
+        // {
+        //   value,
+        //   label,
+        // }
+      ]
+    },
   };
 
   constructor(props) {
