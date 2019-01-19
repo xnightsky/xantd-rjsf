@@ -1,15 +1,13 @@
 import _ from "lodash";
 
 
-
-
-
 export function isSelect (schema) {
   const {
     enum: enumValue,
   } = schema || {};
   return !!enumValue;
 }
+
 
 export function toEnumOptions(schema) {
   const {
@@ -52,62 +50,27 @@ export function isMultipleChoices(schema) {
 }
 
 
+export function isFixedArray(schema) {
+  const {
+    type,
+    items = null,
+  } = schema;
+  if ("array" === type) {
+    return Array.isArray(items)
+  }
+  return false;
+}
+
+
 ///////////////////////////////////////////////////////////////////
 // INFO: metadata 往 jsonschema 统一 的美好愿望
 
-class SchemaBase {
-  constructor (metadata) {
-    this.metadata = metadata || {};
-  };
 
-  xreset (metadata) {
-    this.metadata = metadata;
-    return this;
-  }
-}
-
-
-class SchemaParser extends SchemaBase  {
-  constructor(props) {
-    super(props);
-  }
-
-  parse() {
-    sniffer = new SchemaSniffer(this.metadata)
-    const rtProps = {
-      widget: "select",
-    };
-
-  }
-
-  onSelectToEnumOptions () {
-    const {
-      enum: enumValue = [],
-      enumName = [],
-    } = this.metadata || {};
-
-    return enumValue.map(
-      function (value, index) {
-        return {
-          key: value,
-          value: value,
-          label: enumName[index] || value,
-        };
-      }
-    )
-  }
-}
-
-
-class SchemaSchedule extends SchemaBase  {
-  constructor(props) {
-    super(props);
-  }
-
-  ifThen(formValues, callback) {
+class SchemaSchedule {
+  ifThen(schema, formValues, callback) {
     const {
       switch: switchValue = [],
-    } = this.metadata || {};
+    } = schema || {};
     _.forEach(switchValue, function(icase) {
       const iproperties = _.get(icase, "if.properties") || {};
       // console.log("iproperties", iproperties, formValues)

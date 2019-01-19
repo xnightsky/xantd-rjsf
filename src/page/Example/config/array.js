@@ -166,25 +166,25 @@ const schema = {
       },
       "uniqueItems": true
     },
-    // "fixedItemsList": {
-    //   "type": "array",
-    //   "title": "A list of fixed items",
-    //   "items": [
-    //     {
-    //       "title": "A string value",
-    //       "type": "string",
-    //       "default": "lorem ipsum"
-    //     },
-    //     {
-    //       "title": "a boolean value",
-    //       "type": "boolean"
-    //     }
-    //   ],
-    //   "additionalItems": {
-    //     "title": "Additional item",
-    //     "type": "number"
-    //   }
-    // },
+    "fixedItemsList": {
+      "type": "array",
+      "title": "A list of fixed items",
+      "items": [
+        {
+          "title": "A string value",
+          "type": "string",
+          "default": "lorem ipsum"
+        },
+        {
+          "title": "a boolean value",
+          "type": "boolean"
+        }
+      ],
+      "additionalItems": {
+        "title": "Additional item",
+        "type": "number"
+      }
+    },
     // "minItemsList": {
     //   "type": "array",
     //   "title": "A list with a minimal number of items",
@@ -282,11 +282,11 @@ const initialValue = {
     "foo",
     "bar"
   ],
-  // "fixedItemsList": [
-  //   "Some text",
-  //   true,
-  //   123
-  // ],
+  "fixedItemsList": [
+    "Some text",
+    true,
+    123
+  ],
   // "minItemsList": [
   //   {
   //     "name": "Default name"

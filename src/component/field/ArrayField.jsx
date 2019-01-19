@@ -8,10 +8,11 @@ import {
 import {
   isMultipleChoices,
   toEnumOptions,
+  isFixedArray,
 } from "../schemaUtils.jsx"
 
 
-function ArrayField(props) {
+function renderDefaultArrayField(props) {
   const {
     schema,
     registry = getDefaultRegistry(),
@@ -20,20 +21,6 @@ function ArrayField(props) {
   const {
     items,
   } = schema
-  //
-  const enumOptions = isMultipleChoices(schema) ? toEnumOptions(schema.items) : {}
-  if (!_.isEmpty(enumOptions)) {
-    const Widget = getWidget(schema, "checkbox");
-    return (
-      <Widget
-        schema={schema}
-        options={{
-          ...enumOptions,
-        }}
-        {...restProps}
-      />
-    );
-  }
   //
   const Widget = getWidget(schema, "default");
   const SchemaFieldTemplate = registry.SchemaFieldTemplate;
@@ -68,6 +55,112 @@ function ArrayField(props) {
     }
     </Widget>
   );
+}
+
+
+function renderUniqueEnumArrayField(props, options = {}) {
+  const {
+    schema,
+    // registry = getDefaultRegistry(),
+    ...restProps
+  } = props;
+  const Widget = getWidget(schema, "checkbox");
+    return (
+      <Widget
+        schema={schema}
+        options={options}
+        {...restProps}
+      />
+    );
+}
+
+
+function renderFixedArray(props) {
+  const {
+    schema,
+    registry = getDefaultRegistry(),
+    ...restProps
+  } = props;
+  const {
+    items: itemSchemaList,
+    additionalItems,
+  } = schema
+  const itemSchemaListLength = itemSchemaList.length;
+  const fixable = function (index) {
+    return index >= itemSchemaListLength;
+  }
+  const addable = !_.isEmpty(additionalItems);
+  //
+  const Widget = getWidget(schema, "default");
+  const SchemaFieldTemplate = registry.SchemaFieldTemplate;
+  return (
+    <Widget
+      schema={schema}
+      options={{
+        addable,
+        removable: fixable,
+        orderable: fixable,
+        minLength: itemSchemaListLength,
+      }}
+      {...restProps}
+    >
+    {
+      (itemProps, index) => {
+        const ikey = `${index}`;
+        const iItemSchema = index < itemSchemaListLength
+          ? itemSchemaList[index]
+          : additionalItems
+        ;
+        if (!iItemSchema) {
+          console.warn("[ArrayField]: additionalItems 未配置，但是依然能添加元素!")
+          return null;
+        }
+        return (
+          <div key={`array-item-${index}`}>
+            <SchemaFieldTemplate
+              {
+                ...{
+                  key: ikey,
+                  name: ikey,
+                  schema: iItemSchema,
+                  registry: getDefaultRegistry(
+                    {
+                      // array 列表需要定制 Template
+                      FieldTemplate: registry.ArrayFieldTemplate,
+                    }
+                  ),
+                  ...itemProps,
+                }
+              }
+            />
+          </div>
+        );
+      }
+    }
+    </Widget>
+  );
+}
+
+
+function ArrayField(props) {
+  const {
+    schema,
+    registry = getDefaultRegistry(),
+    ...restProps
+  } = props;
+  //
+  const enumOptions = isMultipleChoices(schema) ? toEnumOptions(schema.items) : {}
+  if (!_.isEmpty(enumOptions)) {
+    return renderUniqueEnumArrayField(
+      props,
+      enumOptions,
+    );
+  }
+  if (isFixedArray(schema)) {
+    return renderFixedArray(props);
+  }
+  //
+  return renderDefaultArrayField(props);
 }
 
 

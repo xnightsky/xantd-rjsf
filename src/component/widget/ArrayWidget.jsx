@@ -18,7 +18,7 @@ import {
 
 function getOptionsWithProps (props) {
   const {
-    option: {
+    options: {
       addable = true,
       removable = true,
       orderable = true,
@@ -33,18 +33,41 @@ function getOptionsWithProps (props) {
   }
 }
 
+function isAble(anyable, ...args) {
+  return "function" === typeof anyable ? anyable(...args) : anyable;
+}
+
+
+function normalizeValueWithProps(value, props) {
+  const {
+    minLength,
+    defaultItem,
+  } = getOptionsWithProps(props);
+  let rtValueList = value || [];
+  let rtValueLength = rtValueList.length;
+  if (minLength && rtValueLength < minLength) {
+    // return new array
+    return _.assign(_.fill(new Array(minLength), defaultItem), rtValueList)
+  }
+  return rtValueList;
+}
+
+
 class ArrayWidget extends React.Component {
   static defaultProps = {
     value: null,
     onChange: null,
     defaultItem: null,
-    option: getOptionsWithProps({}),
+    options: getOptionsWithProps({}),
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      value: props.initialValue || props.value || [],
+      value: normalizeValueWithProps(
+        props.initialValue || props.value || [],
+        props
+      ),
     };
   }
 
@@ -54,7 +77,10 @@ class ArrayWidget extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.value != this.props.value) {
       this.setState({
-        value: nextProps.value,
+        value: normalizeValueWithProps(
+          nextProps.value,
+          nextProps
+        ),
       });
     }
   }
@@ -144,78 +170,93 @@ class ArrayWidget extends React.Component {
       removable,
       orderable,
     } = getOptionsWithProps(this.props);
+    const rtRemovable = isAble(removable, index, indexLength);
+    const rtOrderable = isAble(orderable, index, indexLength);
     // console.log("renderOperationPopover", element);
-    return (
-      <Popover
-        key={`editor-${index}`}
-        title={null}
-        content={(
-          [
-            ...(
-              orderable ? [
-                (index > 0) ? (
-                  <Button
-                    key={`op-move-left`}
-                    style={{
-                      display: "block",
-                      marginTop: 5,
-                    }}
-                    icon="arrow-up"
-                    onClick={(e) => {
-                      preventEvent(e);
-                      rthis.itemMove(index, index - 1, indexLength);
-                    }}
-                  />
-                ) : null,
-                (index < indexLength - 1) ? (
-                  <Button
-                    key={`op-move-right`}
-                    style={{
-                      display: "block",
-                      marginTop: 5,
-                    }}
-                    icon="arrow-down"
-                    onClick={(e) => {
-                      preventEvent(e);
-                      rthis.itemMove(index, index + 1, indexLength);
-                    }}
-                  />
-                ): null,
-              ] : []
+    if (!rtRemovable && !rtOrderable) {
+      return element;
+    } else {
+      return (
+        <Popover
+          key={`editor-${index}`}
+          title={null}
+          content={renderOperationPanel()}
+          trigger="hover"
+          placement="left"
+        >
+        <div data-list-item-wrapper>
+        {
+          element
+        }
+        </div>
+        </Popover>
+      );
+    }
+
+    function renderOperationPanel() {
+      return [
+        ...(
+          rtOrderable ? [
+            (
+              <Button
+                key={`op-move-left`}
+                style={{
+                  display: "block",
+                  marginTop: 5,
+                }}
+                icon="arrow-up"
+                disabled={!(
+                  index > 0
+                    && isAble(orderable, index - 1, indexLength)
+                )}
+                onClick={(e) => {
+                  preventEvent(e);
+                  rthis.itemMove(index, index - 1, indexLength);
+                }}
+              />
             ),
-            ...(
-              removable ? [
-                (
-                  <Button
-                    key={`op-remove`}
-                    style={{
-                      display: "block",
-                      marginTop: 5,
-                      background: "#c0341d",
-                      border: "#a62d19",
-                      color: "#fff",
-                    }}
-                    icon="delete"
-                    onClick={(e) => {
-                      preventEvent(e);
-                      rthis.itemRemove(index);
-                    }}
-                  />
-                )
-              ] : []
+            (
+              <Button
+                key={`op-move-right`}
+                style={{
+                  display: "block",
+                  marginTop: 5,
+                }}
+                icon="arrow-down"
+                disabled={!(
+                  index < indexLength - 1
+                )}
+                onClick={(e) => {
+                  preventEvent(e);
+                  rthis.itemMove(index, index + 1, indexLength);
+                }}
+              />
             ),
-          ]
-        )}
-        trigger="hover"
-        placement="left"
-      >
-      <div data-list-item-wrapper>
-      {
-        element
-      }
-      </div>
-      </Popover>
-    )
+          ] : []
+        ),
+        ...(
+          rtRemovable ? [
+            (
+              <Button
+                key={`op-remove`}
+                style={{
+                  display: "block",
+                  marginTop: 5,
+                  background: "#c0341d",
+                  border: "#a62d19",
+                  color: "#fff",
+                }}
+                icon="delete"
+                onClick={(e) => {
+                  preventEvent(e);
+                  rthis.itemRemove(index);
+                }}
+              />
+            )
+          ] : []
+        ),
+      ]
+    }
   }
 
   render () {
@@ -233,6 +274,7 @@ class ArrayWidget extends React.Component {
     } = this.state;
 
     const rtValueList = value || [];
+    const rtValueLength = rtValueList.length;
     return (
       <div>
         <div>
@@ -262,12 +304,12 @@ class ArrayWidget extends React.Component {
                   }
                 )
               ;
-              return this.renderOperationPopover(rtelement, index, rtValueList.length);
+              return this.renderOperationPopover(rtelement, index, rtValueLength);
             })
         }
         </div>
         {
-          addable ? (
+          isAble(addable, rtValueLength, rtValueLength) ? (
             <div>
               <Button
                 key={`op-add`}
