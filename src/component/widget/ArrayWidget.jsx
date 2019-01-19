@@ -40,14 +40,14 @@ function isAble(anyable, ...args) {
 
 function normalizeValueWithProps(value, props) {
   const {
-    minLength,
+    minItems,
     defaultItem,
   } = getOptionsWithProps(props);
   let rtValueList = value || [];
   let rtValueLength = rtValueList.length;
-  if (minLength && rtValueLength < minLength) {
+  if (minItems && rtValueLength < minItems) {
     // return new array
-    return _.assign(_.fill(new Array(minLength), defaultItem), rtValueList)
+    return _.assign(_.fill(new Array(minItems), defaultItem), rtValueList)
   }
   return rtValueList;
 }

@@ -185,20 +185,20 @@ const schema = {
         "type": "number"
       }
     },
-    // "minItemsList": {
-    //   "type": "array",
-    //   "title": "A list with a minimal number of items",
-    //   "minItems": 3,
-    //   "items": {
-    //     "type": "object",
-    //     "properties": {
-    //       "name": {
-    //         "type": "string",
-    //         "default": "Default name"
-    //       }
-    //     }
-    //   }
-    // },
+    "minItemsList": {
+      "type": "array",
+      "title": "A list with a minimal number of items",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "default": "Default name"
+          }
+        }
+      }
+    },
     // "defaultsAndMinItems": {
     //   "type": "array",
     //   "title": "List and item level defaults",
@@ -287,17 +287,17 @@ const initialValue = {
     true,
     123
   ],
-  // "minItemsList": [
-  //   {
-  //     "name": "Default name"
-  //   },
-  //   {
-  //     "name": "Default name"
-  //   },
-  //   {
-  //     "name": "Default name"
-  //   }
-  // ],
+  "minItemsList": [
+    {
+      "name": "Default name"
+    },
+    {
+      "name": "Default name"
+    },
+    {
+      "name": "Default name"
+    }
+  ],
   // "defaultsAndMinItems": [
   //   "carp",
   //   "trout",

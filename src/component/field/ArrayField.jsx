@@ -27,7 +27,9 @@ function renderDefaultArrayField(props) {
   return (
     <Widget
       schema={schema}
-      options={{}}
+      options={{
+        minItems: schema.minItems,
+      }}
       {...restProps}
     >
     {
@@ -68,7 +70,10 @@ function renderUniqueEnumArrayField(props, options = {}) {
     return (
       <Widget
         schema={schema}
-        options={options}
+        options={{
+          ...options,
+          minItems: schema.minItems,
+        }}
         {...restProps}
       />
     );
