@@ -32,7 +32,7 @@ class CheckboxWidget extends Value {
     const {
       value: _value,
       onChange: _onChange,
-      initialValue: _initialValue,
+      initialValue: initialValue,
       options: {
         enumOptions
       },
@@ -42,13 +42,14 @@ class CheckboxWidget extends Value {
     const {
       value,
     } = this.state;
+    const rtValue = undefined !== value ? value : initialValue;
     return (
       <Checkbox.Group
         style={{
           width: "100%",
           ...style,
         }}
-        value={value}
+        value={rtValue}
         onChange={(e) => {
           this.triggerQuickChange(e);
         }}

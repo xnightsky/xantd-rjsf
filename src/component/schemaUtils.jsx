@@ -1,6 +1,11 @@
 import _ from "lodash";
 
 
+export function toInitialValue(schema) {
+  return schema ? schema.default : undefined;
+}
+
+
 export function isSelect (schema) {
   const {
     enum: enumValue,

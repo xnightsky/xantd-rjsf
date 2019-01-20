@@ -40,13 +40,14 @@ class SelectWidget extends Value {
     const {
       value,
     } = this.state;
+    const rtValue = undefined !== value ? value : initialValue;
     return (
       <Select
         style={{
           width: "100%",
           ...style,
         }}
-        value={value}
+        value={rtValue}
         onChange={(e) => {
           this.triggerQuickChange(e);
         }}

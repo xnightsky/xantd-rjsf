@@ -9,6 +9,9 @@ import {
 import {
   getValueFromPreventEvent,
 } from "../utils.jsx";
+import {
+  toInitialValue,
+} from "../schemaUtils.jsx"
 
 
 function NumberField(props) {
@@ -22,6 +25,7 @@ function NumberField(props) {
     <Widget
       schema={schema}
       options={{}}
+      initialValue={toInitialValue(schema)}
       {...restProps}
       onChange={(e) => {
         let evalue = getValueFromPreventEvent(e);

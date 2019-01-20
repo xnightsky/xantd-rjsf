@@ -14,9 +14,10 @@ function SwitchWidget(props) {
     initialValue,
     ...restProps
   } = props;
+  const rtValue = undefined !== value ? value : initialValue;
   return (
     <Switch
-      checked={value || initialValue}
+      checked={rtValue}
       onChange={onChange}
       {...restProps}
     />

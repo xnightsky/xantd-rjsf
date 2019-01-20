@@ -272,8 +272,9 @@ class ArrayWidget extends React.Component {
     const {
       value: value,
     } = this.state;
-
-    const rtValueList = value || [];
+    //
+    const rtValue = undefined !== value ? value : initialValue;
+    const rtValueList = rtValue || [];
     const rtValueLength = rtValueList.length;
     return (
       <div>

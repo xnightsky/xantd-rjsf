@@ -13,10 +13,14 @@ import {
 
 function NumberWidget (props) {
   const {
+    initialValue,
+    value,
     ...restProps
   } = props;
+  const rtValue = undefined !== value ? value : initialValue;
   return (
     <InputNumber
+      value={rtValue}
       {...restProps}
     />
   )

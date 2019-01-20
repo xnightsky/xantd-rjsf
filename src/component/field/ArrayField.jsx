@@ -6,6 +6,7 @@ import {
   getDefaultRegistry,
 } from "../Registry.jsx";
 import {
+  toInitialValue,
   isMultipleChoices,
   toEnumOptions,
   isFixedArray,
@@ -30,6 +31,7 @@ function renderDefaultArrayField(props) {
       options={{
         minItems: schema.minItems,
       }}
+      initialValue={toInitialValue(schema)}
       {...restProps}
     >
     {
@@ -74,6 +76,7 @@ function renderUniqueEnumArrayField(props, options = {}) {
           ...options,
           minItems: schema.minItems,
         }}
+        initialValue={toInitialValue(schema)}
         {...restProps}
       />
     );
@@ -107,6 +110,7 @@ function renderFixedArray(props) {
         orderable: fixable,
         minLength: itemSchemaListLength,
       }}
+      initialValue={toInitialValue(schema)}
       {...restProps}
     >
     {
