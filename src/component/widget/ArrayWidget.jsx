@@ -5,6 +5,8 @@ import {
   Popover,
   Button,
   // Divider,
+  Row,
+  Col,
 } from "antd";
 
 import {
@@ -58,10 +60,10 @@ class ArrayWidget extends React.Component {
     value: undefined,
     onChange: null,
     options: getOptionsWithProps({}),
-    // itemOperation: {
-    //   // layout: "popover",
-    //   layout: "sidebar",
-    // }
+    itemOperation: {
+      layout: "popover",
+      // layout: "toolbar",
+    }
   };
 
   constructor(props) {
@@ -170,6 +172,9 @@ class ArrayWidget extends React.Component {
   renderOperationPopover(element, index, indexLength) {
     const rthis = this;
     const {
+      itemOperation: {
+        layout,
+      } = {},
       // options,
     } = rthis.props;
     const {
@@ -182,24 +187,64 @@ class ArrayWidget extends React.Component {
     if (!rtRemovable && !rtOrderable) {
       return element;
     } else {
-      return (
-        <Popover
-          key={`editor-${index}`}
-          title={null}
-          content={renderOperationPanel()}
-          trigger="hover"
-          placement="left"
-        >
-        <div data-list-item-wrapper>
-        {
-          element
+      switch (layout) {
+        case "toolbar":
+            return (
+              <Row type="flex">
+                <Col
+                  style={{
+                    flex: 1,
+                  }}
+                  data-list-item-wrapper
+                >
+                {
+                  element
+                }
+                </Col>
+                <Col
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                {
+                  renderOperationPanel(
+                    {
+                      // display: "inline-block",
+                      display: "block",
+                      marginTop: 5,
+                    }
+                  )
+                }
+                </Col>
+              </Row>
+            );
+        case "popover":
+        default:
+          return (
+            <Popover
+              key={`editor-${index}`}
+              title={null}
+              content={renderOperationPanel(
+                {
+                  display: "block",
+                  marginTop: 5,
+                }
+              )}
+              trigger="hover"
+              placement="left"
+            >
+            <div data-list-item-wrapper>
+            {
+              element
+            }
+            </div>
+            </Popover>
+          );
         }
-        </div>
-        </Popover>
-      );
     }
 
-    function renderOperationPanel() {
+    function renderOperationPanel(itemStyle = {}) {
       return [
         ...(
           rtOrderable ? [
@@ -207,8 +252,7 @@ class ArrayWidget extends React.Component {
               <Button
                 key={`op-move-left`}
                 style={{
-                  display: "block",
-                  marginTop: 5,
+                  ...itemStyle,
                 }}
                 icon="arrow-up"
                 disabled={!(
@@ -225,8 +269,7 @@ class ArrayWidget extends React.Component {
               <Button
                 key={`op-move-right`}
                 style={{
-                  display: "block",
-                  marginTop: 5,
+                  ...itemStyle,
                 }}
                 icon="arrow-down"
                 disabled={!(
@@ -246,11 +289,10 @@ class ArrayWidget extends React.Component {
               <Button
                 key={`op-remove`}
                 style={{
-                  display: "block",
-                  marginTop: 5,
                   background: "#c0341d",
                   border: "#a62d19",
                   color: "#fff",
+                  ...itemStyle,
                 }}
                 icon="delete"
                 onClick={(e) => {
