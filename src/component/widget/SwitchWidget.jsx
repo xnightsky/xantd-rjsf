@@ -5,16 +5,29 @@ import {
   Switch,
 } from "antd";
 
+import {
+  setRuntimeValue,
+} from "../utils.jsx";
+
 
 
 function SwitchWidget(props) {
   const {
+    initialValue,
+    defaultValue,
     value,
     onChange,
-    initialValue,
     ...restProps
   } = props;
-  const rtValue = undefined !== value ? value : initialValue;
+  // const rtValue = undefined !== value ? value : initialValue;
+  const rtValue = setRuntimeValue(
+    {
+      value,
+      initialValue,
+      defaultValue,
+      onChange,
+    }
+  );
   return (
     <Switch
       checked={rtValue}

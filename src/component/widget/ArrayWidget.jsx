@@ -10,12 +10,11 @@ import {
 } from "antd";
 
 import {
-  // getValueFromEvent,
-  // getValueFromPreventEvent,
-  preventEvent, getValueFromPreventEvent,
+  preventEvent,
+  getValueFromPreventEvent,
+  setRuntimeValue,
+  setRuntimeValueFromProps,
 } from "../utils.jsx";
-
-
 
 
 function getOptionsWithProps (props) {
@@ -70,9 +69,17 @@ class ArrayWidget extends React.Component {
     super(props);
     this.state = {
       value: normalizeValueWithProps(
-        (
-          (undefined !== props.value ? props.value : props.initialValue)
-            || []
+        // (
+        //   (undefined !== props.value ? props.value : props.initialValue)
+        //     || []
+        // ),
+        setRuntimeValue(
+          {
+            value: props.value,
+            initialValue: props.initialValue,
+            defaultValue: [],
+            onChange: props.onChange,
+          }
         ),
         props
       ),
@@ -85,8 +92,19 @@ class ArrayWidget extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.value != this.props.value) {
       this.setState({
+        // value: normalizeValueWithProps(
+        //   nextProps.value,
+        //   nextProps
+        // ),
         value: normalizeValueWithProps(
-          nextProps.value,
+          setRuntimeValue(
+            {
+              value: nextProps.value,
+              initialValue: nextProps.initialValue,
+              defaultValue: [],
+              onChange: nextProps.onChange,
+            }
+          ),
           nextProps
         ),
       });

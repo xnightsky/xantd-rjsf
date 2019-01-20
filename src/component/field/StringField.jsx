@@ -8,7 +8,7 @@ import {
   getDefaultRegistry,
 } from "../Registry.jsx";
 import {
-  toInitialValue,
+  toDefault,
   isSelect,
   toEnumOptions,
 } from "../schemaUtils.jsx"
@@ -29,7 +29,7 @@ function StringField(props) {
       options={{
         ...enumOptions
       }}
-      initialValue={toInitialValue(schema)}
+      initialValue={toDefault(schema)}
       {...restProps}
     />
   );

@@ -11,6 +11,7 @@ import Value from "./Value.jsx";
 class TextWidget extends Value {
   static defaultProps = {
     initialValue: undefined,
+    defaultValue: "",
     value: undefined,
     onChange: undefined,
     optimize: {
@@ -38,7 +39,8 @@ class TextWidget extends Value {
 
   render() {
     const {
-      initialValue,
+      initialValue: _initialValue,
+      defaultValue: _defaultValue,
       value: _value,
       onChange: _onChange,
       ...restProps
@@ -46,13 +48,9 @@ class TextWidget extends Value {
     const {
       value,
     } = this.state;
-    const rtValue = (
-      (undefined !== value ? value : initialValue)
-        || ""
-    );
     return (
       <Input
-        value={rtValue}
+        value={value}
         onChange={(e) => {
           this.triggerQuickChange(e);
         }}

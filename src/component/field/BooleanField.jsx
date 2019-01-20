@@ -6,7 +6,7 @@ import {
   getDefaultRegistry,
 } from "../Registry.jsx";
 import {
-  toInitialValue,
+  toDefault,
 } from "../schemaUtils.jsx"
 
 
@@ -21,7 +21,7 @@ function BooleanField(props) {
     <Widget
       schema={schema}
       options={{}}
-      initialValue={toInitialValue(schema)}
+      initialValue={toDefault(schema)}
       {...restProps}
     />
   );

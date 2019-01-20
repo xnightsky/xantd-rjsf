@@ -1,7 +1,7 @@
 import _ from "lodash";
 
 
-export function toInitialValue(schema) {
+export function toDefault(schema) {
   return schema ? schema.default : undefined;
 }
 

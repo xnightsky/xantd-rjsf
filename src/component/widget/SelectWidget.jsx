@@ -11,6 +11,7 @@ import Value from "./Value.jsx";
 class SelectWidget extends Value {
   static defaultProps = {
     initialValue: undefined,
+    defaultValue: undefined,
     value: undefined,
     onChange: undefined,
     enumOptions: [
@@ -29,6 +30,7 @@ class SelectWidget extends Value {
   render() {
     const {
       initialValue,
+      defaultValue,
       value: _value,
       onChange: _onChange,
       options:{
@@ -40,14 +42,13 @@ class SelectWidget extends Value {
     const {
       value,
     } = this.state;
-    const rtValue = undefined !== value ? value : initialValue;
     return (
       <Select
         style={{
           width: "100%",
           ...style,
         }}
-        value={rtValue}
+        value={value}
         onChange={(e) => {
           this.triggerQuickChange(e);
         }}

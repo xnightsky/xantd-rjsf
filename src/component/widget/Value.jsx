@@ -7,13 +7,14 @@ import {
 
 import {
   getValueFromEvent,
-  // getValueFromPreventEvent,
+  setRuntimeValueFromProps,
 } from "../utils.jsx";
 
 
-class Value extends React.Component {
+class ValueComponent extends React.Component {
   static defaultProps = {
     initialValue: undefined,
+    defaultValue: undefined,
     value: undefined,
     onChange: undefined,
   };
@@ -21,14 +22,16 @@ class Value extends React.Component {
   constructor (props) {
     super (props);
     this.state = {
-      value: undefined !== props.value ? props.value : props.initialValue,
+      // value: undefined !== props.value ? props.value : props.initialValue,
+      value: setRuntimeValueFromProps(props),
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.value != this.state.value) {
       this.setState({
-        value: nextProps.value,
+        // value: nextProps.value,
+        value: setRuntimeValueFromProps(nextProps),
       });
     }
   }
@@ -59,4 +62,4 @@ class Value extends React.Component {
 }
 
 
-export default Value;
+export default ValueComponent;

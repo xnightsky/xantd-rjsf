@@ -6,21 +6,31 @@ import {
 } from "antd";
 
 import {
-  getValueFromEvent,
-  // getValueFromPreventEvent,
+  setRuntimeValue,
 } from "../utils.jsx";
 
 
 function NumberWidget (props) {
   const {
     initialValue,
+    defaultValue,
     value,
+    onChange,
     ...restProps
   } = props;
-  const rtValue = undefined !== value ? value : initialValue;
+  // const rtValue = undefined !== value ? value : initialValue;
+  const rtValue = setRuntimeValue(
+    {
+      value,
+      initialValue,
+      defaultValue,
+      onChange,
+    }
+  );
   return (
     <InputNumber
       value={rtValue}
+      onChange={onChange}
       {...restProps}
     />
   )
