@@ -46,7 +46,10 @@ class TextWidget extends Value {
     const {
       value,
     } = this.state;
-    const rtValue = undefined !== value ? value : initialValue;
+    const rtValue = (
+      (undefined !== value ? value : initialValue)
+        || ""
+    );
     return (
       <Input
         value={rtValue}

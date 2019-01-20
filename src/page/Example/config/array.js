@@ -199,20 +199,20 @@ const schema = {
         }
       }
     },
-    // "defaultsAndMinItems": {
-    //   "type": "array",
-    //   "title": "List and item level defaults",
-    //   "minItems": 5,
-    //   "default": [
-    //     "carp",
-    //     "trout",
-    //     "bream"
-    //   ],
-    //   "items": {
-    //     "type": "string",
-    //     "default": "unidentified"
-    //   }
-    // },
+    "defaultsAndMinItems": {
+      "type": "array",
+      "title": "List and item level defaults",
+      "minItems": 5,
+      "default": [
+        "carp",
+        "trout",
+        "bream"
+      ],
+      "items": {
+        "type": "string",
+        "default": "unidentified"
+      }
+    },
     // "nestedList": {
     //   "type": "array",
     //   "title": "Nested list",
