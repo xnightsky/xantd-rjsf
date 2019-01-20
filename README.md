@@ -1,4 +1,4 @@
-base on react-json-schema-form
+base on [react-json-schema-form](https://github.com/mozilla-services/react-jsonschema-form)
 
 施工中的 react-json-schema-form 的 antd 适配......
 
