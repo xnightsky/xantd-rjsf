@@ -71,7 +71,11 @@ const DefaultArrayFieldTemplate = ({
   switch (schema && schema.type) {
     case "object":
       return (
-        <Card>
+        <Card
+          style={{
+            marginBottom: 10,
+          }}
+        >
         {
           children
         }
