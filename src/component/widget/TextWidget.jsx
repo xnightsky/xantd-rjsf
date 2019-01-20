@@ -38,9 +38,9 @@ class TextWidget extends Value {
 
   render() {
     const {
+      initialValue,
       value: _value,
       onChange: _onChange,
-      initialValue: initialValue,
       ...restProps
     } = this.props;
     const {

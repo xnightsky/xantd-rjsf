@@ -41,13 +41,13 @@ function isAble(anyable, ...args) {
 function normalizeValueWithProps(value, props) {
   const {
     minItems,
-    defaultItem,
+    additionalDefault,
   } = getOptionsWithProps(props);
   let rtValueList = value || [];
   let rtValueLength = rtValueList.length;
   if (minItems && rtValueLength < minItems) {
     // return new array
-    return _.assign(_.fill(new Array(minItems), defaultItem), rtValueList)
+    return _.assign(_.fill(new Array(minItems), additionalDefault), rtValueList)
   }
   return rtValueList;
 }
@@ -55,17 +55,23 @@ function normalizeValueWithProps(value, props) {
 
 class ArrayWidget extends React.Component {
   static defaultProps = {
-    value: null,
+    value: undefined,
     onChange: null,
-    defaultItem: null,
     options: getOptionsWithProps({}),
+    // itemOperation: {
+    //   // layout: "popover",
+    //   layout: "sidebar",
+    // }
   };
 
   constructor(props) {
     super(props);
     this.state = {
       value: normalizeValueWithProps(
-        props.initialValue || props.value || [],
+        (
+          (undefined !== props.value ? props.value : props.initialValue)
+            || []
+        ),
         props
       ),
     };
@@ -87,14 +93,14 @@ class ArrayWidget extends React.Component {
 
   itemAdd = () => {
     const {
-      defaultItem,
-    } = this.props;
+      additionalDefault,
+    } = getOptionsWithProps(this.props);
     this.setState(
       update(
         this.state,
         {
           value: {
-            $push: [defaultItem],
+            $push: [additionalDefault],
           },
         }
       ),
@@ -273,8 +279,7 @@ class ArrayWidget extends React.Component {
       value: value,
     } = this.state;
     //
-    const rtValue = undefined !== value ? value : initialValue;
-    const rtValueList = rtValue || [];
+    const rtValueList = value || [];
     const rtValueLength = rtValueList.length;
     return (
       <div>

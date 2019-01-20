@@ -28,9 +28,9 @@ class SelectWidget extends Value {
 
   render() {
     const {
+      initialValue,
       value: _value,
       onChange: _onChange,
-      initialValue: _initialValue,
       options:{
         enumOptions,
       } = {},

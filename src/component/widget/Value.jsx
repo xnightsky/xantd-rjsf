@@ -21,7 +21,7 @@ class Value extends React.Component {
   constructor (props) {
     super (props);
     this.state = {
-      value: props.initialValue || props.value || undefined,
+      value: undefined !== props.value ? props.value : props.initialValue,
     };
   }
 

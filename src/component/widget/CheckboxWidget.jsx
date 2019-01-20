@@ -30,9 +30,9 @@ class CheckboxWidget extends Value {
 
   render() {
     const {
+      initialValue,
       value: _value,
       onChange: _onChange,
-      initialValue: initialValue,
       options: {
         enumOptions
       },
