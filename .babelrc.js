@@ -6,7 +6,10 @@ module.exports = {
   "env": {
     // "development": {
     //     "plugins": ["react-hot-loader/babel"]
-    // }
+    // }{
+    "production": {
+      "plugins": ["react-remove-prop-types"]
+    }
   },
   "plugins": [
     [
