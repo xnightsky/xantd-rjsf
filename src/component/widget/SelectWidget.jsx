@@ -5,7 +5,7 @@ import {
   Select,
 } from "antd";
 
-import Value from "./Value.jsx";
+import Value from "./IValueWidget.jsx";
 
 
 class SelectWidget extends Value {

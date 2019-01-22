@@ -5,7 +5,7 @@ import {
   Input,
 } from "antd";
 
-import Value from "./Value.jsx";
+import Value from "./IValueWidget.jsx";
 
 
 class TextWidget extends Value {

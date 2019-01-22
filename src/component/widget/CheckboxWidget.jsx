@@ -5,7 +5,7 @@ import {
   Checkbox,
 } from "antd";
 
-import Value from "./Value.jsx";
+import Value from "./IValueWidget.jsx";
 
 
 class CheckboxWidget extends Value {
