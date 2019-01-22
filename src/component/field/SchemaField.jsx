@@ -9,10 +9,10 @@ import {
   getField,
   getDefaultRegistry,
 } from "../Registry.jsx";
-import BaseField from "./BaseField.jsx";
+import IBaseField from "./IBaseField.jsx";
 
 
-class SchemaField extends BaseField {
+class SchemaField extends IBaseField {
   static defaultProps = {
     schema: {},
     uiSchema: {},

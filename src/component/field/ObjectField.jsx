@@ -10,10 +10,10 @@ import {
   getWidget,
   getDefaultRegistry,
 } from "../Registry.jsx";
-import BaseField from "./BaseField.jsx";
+import IBaseField from "./IBaseField.jsx";
 
 
-class ObjectField extends BaseField {
+class ObjectField extends IBaseField {
   static defaultProps = {
     initialValue: undefined,
     schema: {},

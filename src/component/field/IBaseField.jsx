@@ -8,7 +8,7 @@ import {
 } from "../utils.jsx";
 
 
-class BaseField extends React.Component {
+class IBaseField extends React.Component {
   static defaultProps = {
     initialValue: undefined,
   };
@@ -123,4 +123,4 @@ class BaseField extends React.Component {
 }
 
 
-export default BaseField;
+export default IBaseField;
