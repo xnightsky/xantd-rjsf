@@ -39,6 +39,13 @@ export default {
       }
     }
   },
+  uiSchema: {
+    "listOfStrings": {
+      "items": {
+        "ui:emptyValue": ""
+      }
+    },
+  },
   initialValue: {
     "firstName": "Chuck",
     "lastName": "Norris",

@@ -12,8 +12,8 @@ class Example extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // current: "simple",
-      current: "array",
+      current: "simple",
+      // current: "array",
     };
   }
 
@@ -67,6 +67,7 @@ class Example extends React.Component {
               key={current}
               initialValue={cfgProps.initialValue}
               schema={cfgProps.schema}
+              uiSchema={cfgProps.uiSchema}
               onChange={(e) => {
                 console.log("onC", e);
               }}

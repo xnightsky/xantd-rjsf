@@ -213,18 +213,18 @@ const schema = {
         "default": "unidentified"
       }
     },
-    // "nestedList": {
-    //   "type": "array",
-    //   "title": "Nested list",
-    //   "items": {
-    //     "type": "array",
-    //     "title": "Inner list",
-    //     "items": {
-    //       "type": "string",
-    //       "default": "lorem ipsum"
-    //     }
-    //   }
-    // },
+    "nestedList": {
+      "type": "array",
+      "title": "Nested list",
+      "items": {
+        "type": "array",
+        "title": "Inner list",
+        "items": {
+          "type": "string",
+          "default": "lorem ipsum"
+        }
+      }
+    },
     // "unorderable": {
     //   "title": "Unorderable items",
     //   "type": "array",
@@ -298,22 +298,22 @@ const initialValue = {
       "name": "Default name"
     }
   ],
-  // "defaultsAndMinItems": [
-  //   "carp",
-  //   "trout",
-  //   "bream",
-  //   "unidentified",
-  //   "unidentified"
-  // ],
-  // "nestedList": [
-  //   [
-  //     "lorem",
-  //     "ipsum"
-  //   ],
-  //   [
-  //     "dolor"
-  //   ]
-  // ],
+  "defaultsAndMinItems": [
+    "carp",
+    "trout",
+    "bream",
+    "unidentified",
+    "unidentified"
+  ],
+  "nestedList": [
+    [
+      "lorem",
+      "ipsum"
+    ],
+    [
+      "dolor"
+    ]
+  ],
   // "unorderable": [
   //   "one",
   //   "two"
