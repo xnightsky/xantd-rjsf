@@ -82,6 +82,20 @@ export function getWidget(schema, widget = "default", registeredWidgets = widget
 }
 
 
+export function getUiOptions(uiSchema) {
+  return Object.keys(uiSchema)
+    .filter((key) => key.startsWith("ui:"))
+    .reduce(
+      (options, key) => {
+        const value = uiSchema[key];
+        return {
+          ...options,
+          [key.substring(3)]: value,
+        };
+      },
+      {}
+    );
+}
 
 
 export function getDefaultRegistry (restProps = {}) {

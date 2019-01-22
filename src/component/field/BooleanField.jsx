@@ -13,14 +13,21 @@ import {
 function BooleanField(props) {
   const {
     schema,
+    uiSchema,
     registry = getDefaultRegistry(),
     ...restProps
   } = props;
-  const Widget = getWidget(schema);
+  const {
+    widget: widgetName = "default",
+    ...options
+  } = getUiOptions(uiSchema);
+  const Widget = getWidget(schema, widgetName);
   return (
     <Widget
       schema={schema}
-      options={{}}
+      options={{
+        ...options,
+      }}
       initialValue={toDefault(schema)}
       {...restProps}
     />

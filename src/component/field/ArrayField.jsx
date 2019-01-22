@@ -4,6 +4,7 @@ import React from "react";
 import {
   getWidget,
   getDefaultRegistry,
+  getUiOptions,
 } from "../Registry.jsx";
 import {
   toDefault,
@@ -16,6 +17,7 @@ import {
 function renderDefaultArrayField(props) {
   const {
     schema,
+    uiSchema,
     registry = getDefaultRegistry(),
     ...restProps
   } = props;
@@ -37,6 +39,7 @@ function renderDefaultArrayField(props) {
     {
       (itemProps, index) => {
         const ikey = `${index}`;
+        const iuiSchema = uiSchema[ikey];
         return (
           <SchemaFieldTemplate
             {
@@ -44,6 +47,7 @@ function renderDefaultArrayField(props) {
                 key: ikey,
                 name: ikey,
                 schema: items,
+                uiSchema: iuiSchema,
                 registry: getDefaultRegistry(
                   {
                     // array 列表需要定制 Template
@@ -65,6 +69,7 @@ function renderDefaultArrayField(props) {
 function renderUniqueEnumArrayField(props, options = {}) {
   const {
     schema,
+    uiSchema,
     // registry = getDefaultRegistry(),
     ...restProps
   } = props;
@@ -86,6 +91,7 @@ function renderUniqueEnumArrayField(props, options = {}) {
 function renderFixedArray(props) {
   const {
     schema,
+    uiSchema,
     registry = getDefaultRegistry(),
     ...restProps
   } = props;
@@ -98,13 +104,17 @@ function renderFixedArray(props) {
     return index >= itemSchemaListLength;
   }
   const addable = !_.isEmpty(additionalItems);
+  const {
+    widget: widgetName = "default",
+    ...options
+  } = getUiOptions(uiSchema);
   //
-  const Widget = getWidget(schema, "default");
+  const Widget = getWidget(schema, widgetName);
   const SchemaFieldTemplate = registry.SchemaFieldTemplate;
   return (
     <Widget
-      schema={schema}
       options={{
+        ...options,
         addable,
         removable: fixable,
         orderable: fixable,

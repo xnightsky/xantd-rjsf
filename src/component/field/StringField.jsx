@@ -1,11 +1,10 @@
 import _ from "lodash";
 import React from "react";
-// import update from "immutability-helper";
 
 import {
-  // defaultWidget,
   getWidget,
   getDefaultRegistry,
+  getUiOptions,
 } from "../Registry.jsx";
 import {
   toDefault,
@@ -17,17 +16,23 @@ import {
 function StringField(props) {
   const {
     schema,
+    uiSchema,
     registry = getDefaultRegistry(),
     ...restProps
   } = props;
   const enumOptions = isSelect(schema) ? toEnumOptions(schema) : {}
-  const widgetName = _.isEmpty(enumOptions) ? "text" : "select";
-  const Widget = getWidget(schema, widgetName);
+  const {
+    widget: widgetName = "default",
+    ...options
+  } = getUiOptions(uiSchema, widgetName);
+  const rtWidgetName = _.isEmpty(enumOptions) ? widgetName : "select";
+  const Widget = getWidget(schema, rtWidgetName);
   return (
     <Widget
       schema={schema}
       options={{
-        ...enumOptions
+        ...options,
+        ...enumOptions,
       }}
       initialValue={toDefault(schema)}
       {...restProps}

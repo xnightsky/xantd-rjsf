@@ -1,6 +1,10 @@
 import _ from "lodash";
 import React from "react";
+import PropTypes from "prop-types";
 
+import {
+  fieldPropTypes,
+} from "../baseTypes.jsx";
 import {
   getField,
   getDefaultRegistry,
@@ -10,8 +14,9 @@ import BaseField from "./BaseField.jsx";
 
 class SchemaField extends BaseField {
   static defaultProps = {
-    initialValue: undefined,
     schema: {},
+    uiSchema: {},
+    initialValue: undefined,
     registry: undefined,
   };
 
@@ -23,21 +28,24 @@ class SchemaField extends BaseField {
   render() {
     const {
       name,
-      schema = {},
+      schema,
+      uiSchema,
       registry = getDefaultRegistry(),
     } = this.props;
-    const FieldTemplate = registry.FieldTemplate;
     const Field = getField(schema);
+    const FieldTemplate = registry.FieldTemplate;
     return (
       <FieldTemplate
         key={name}
         name={name}
         schema={schema}
+        uiSchema={uiSchema}
       >
         <Field
           key={name}
           name={name}
           schema={schema}
+          uiSchema={uiSchema}
           {
             ...this.getValueProps(null, false)
           }
@@ -48,5 +56,8 @@ class SchemaField extends BaseField {
   }
 }
 
+SchemaField.propTypes = {
+  ...fieldPropTypes,
+};
 
 export default SchemaField;

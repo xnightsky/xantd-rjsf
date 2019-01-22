@@ -11,7 +11,7 @@ import {
 } from "../utils.jsx";
 
 
-class ValueComponent extends React.Component {
+class IValueWidget extends React.Component {
   static defaultProps = {
     initialValue: undefined,
     defaultValue: undefined,
@@ -62,4 +62,4 @@ class ValueComponent extends React.Component {
 }
 
 
-export default ValueComponent;
+export default IValueWidget;

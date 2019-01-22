@@ -17,6 +17,7 @@ class ObjectField extends BaseField {
   static defaultProps = {
     initialValue: undefined,
     schema: {},
+    uiSchema: {},
     registry: undefined,
   };
 
@@ -28,7 +29,8 @@ class ObjectField extends BaseField {
   render() {
     const {
       name,
-      schema = {},
+      schema,
+      uiSchema,
       registry = getDefaultRegistry(),
     } = this.props;
     const {
@@ -40,6 +42,7 @@ class ObjectField extends BaseField {
     return _.map(
       properties,
       (ischema, ikey) => {
+        const iuiSchema = uiSchema[ikey];
         return (
           <SchemaFieldTemplate
             {
@@ -47,6 +50,7 @@ class ObjectField extends BaseField {
                 key: ikey,
                 name: ikey,
                 schema: ischema,
+                uiSchema: iuiSchema,
                 registry,
                 ...this.getValueProps(ikey, false),
               }
