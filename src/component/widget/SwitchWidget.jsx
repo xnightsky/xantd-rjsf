@@ -14,7 +14,7 @@ import {
 function SwitchWidget(props) {
   const {
     initialValue,
-    defaultValue,
+    emptyValue,
     value,
     onChange,
     ...restProps
@@ -24,7 +24,7 @@ function SwitchWidget(props) {
     {
       value,
       initialValue,
-      defaultValue,
+      emptyValue,
       onChange,
     }
   );

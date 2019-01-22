@@ -11,7 +11,7 @@ import Value from "./Value.jsx";
 class TextWidget extends Value {
   static defaultProps = {
     initialValue: undefined,
-    defaultValue: "",
+    emptyValue: "",
     value: undefined,
     onChange: undefined,
     optimize: {
@@ -40,7 +40,7 @@ class TextWidget extends Value {
   render() {
     const {
       initialValue: _initialValue,
-      defaultValue: _defaultValue,
+      emptyValue: _emptyValue,
       value: _value,
       onChange: _onChange,
       ...restProps

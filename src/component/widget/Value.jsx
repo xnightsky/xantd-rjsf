@@ -14,7 +14,7 @@ import {
 class IValueWidget extends React.Component {
   static defaultProps = {
     initialValue: undefined,
-    defaultValue: undefined,
+    emptyValue: undefined,
     value: undefined,
     onChange: undefined,
   };

@@ -11,7 +11,7 @@ import Value from "./Value.jsx";
 class CheckboxWidget extends Value {
   static defaultProps = {
     initialValue: undefined,
-    defaultValue: undefined,
+    emptyValue: undefined,
     value: undefined,
     onChange: undefined,
     options: {
@@ -32,7 +32,7 @@ class CheckboxWidget extends Value {
   render() {
     const {
       initialValue,
-      defaultValue,
+      emptyValue,
       value: _value,
       onChange: _onChange,
       options: {

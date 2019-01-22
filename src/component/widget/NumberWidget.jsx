@@ -13,7 +13,7 @@ import {
 function NumberWidget (props) {
   const {
     initialValue,
-    defaultValue,
+    emptyValue,
     value,
     onChange,
     ...restProps
@@ -23,7 +23,7 @@ function NumberWidget (props) {
     {
       value,
       initialValue,
-      defaultValue,
+      emptyValue,
       onChange,
     }
   );

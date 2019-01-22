@@ -11,7 +11,7 @@ import Value from "./Value.jsx";
 class SelectWidget extends Value {
   static defaultProps = {
     initialValue: undefined,
-    defaultValue: undefined,
+    emptyValue: undefined,
     value: undefined,
     onChange: undefined,
     enumOptions: [
@@ -30,7 +30,7 @@ class SelectWidget extends Value {
   render() {
     const {
       initialValue,
-      defaultValue,
+      emptyValue,
       value: _value,
       onChange: _onChange,
       options:{

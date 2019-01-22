@@ -22,18 +22,18 @@ export function setWidgetValue(
   {
     value = undefined,
     initialValue = undefined,
-    defaultValue = undefined,
+    emptyValue = undefined,
     onChange = undefined,
   }
 ) {
   // rtValue is undefined, set initialValue
-  // rtValue is auto convert bool false, set defaultValue
+  // rtValue is auto convert bool false, set emptyValue
   let rtValue = value;
   if (undefined === rtValue && undefined !== initialValue) {
     rtValue = initialValue;
   }
-  if (!rtValue && undefined !== defaultValue) {
-    rtValue = defaultValue;
+  if (!rtValue && undefined !== emptyValue) {
+    rtValue = emptyValue;
   }
   if (rtValue !== value) {
     if (onChange) {
@@ -53,7 +53,7 @@ export function setWidgetValueFromProps(props) {
     {
       value: props.value,
       initialValue: props.initialValue,
-      defaultValue: props.defaultValue,
+      emptyValue: props.emptyValue,
       onChange: props.onChange,
     }
   )

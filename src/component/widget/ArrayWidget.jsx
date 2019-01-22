@@ -77,7 +77,7 @@ class ArrayWidget extends React.Component {
           {
             value: props.value,
             initialValue: props.initialValue,
-            defaultValue: [],
+            emptyValue: [],
             onChange: props.onChange,
           }
         ),
@@ -101,7 +101,7 @@ class ArrayWidget extends React.Component {
             {
               value: nextProps.value,
               initialValue: nextProps.initialValue,
-              defaultValue: [],
+              emptyValue: [],
               onChange: nextProps.onChange,
             }
           ),
