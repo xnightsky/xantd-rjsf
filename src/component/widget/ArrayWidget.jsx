@@ -12,8 +12,8 @@ import {
 import {
   preventEvent,
   getValueFromPreventEvent,
-  setRuntimeValue,
-  setRuntimeValueFromProps,
+  setWidgetValue,
+  // setWidgetValueFromProps,
 } from "../utils.jsx";
 
 
@@ -73,7 +73,7 @@ class ArrayWidget extends React.Component {
         //   (undefined !== props.value ? props.value : props.initialValue)
         //     || []
         // ),
-        setRuntimeValue(
+        setWidgetValue(
           {
             value: props.value,
             initialValue: props.initialValue,
@@ -97,7 +97,7 @@ class ArrayWidget extends React.Component {
         //   nextProps
         // ),
         value: normalizeValueWithProps(
-          setRuntimeValue(
+          setWidgetValue(
             {
               value: nextProps.value,
               initialValue: nextProps.initialValue,

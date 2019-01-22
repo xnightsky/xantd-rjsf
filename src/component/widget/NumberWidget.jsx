@@ -6,7 +6,7 @@ import {
 } from "antd";
 
 import {
-  setRuntimeValue,
+  setWidgetValue,
 } from "../utils.jsx";
 
 
@@ -19,7 +19,7 @@ function NumberWidget (props) {
     ...restProps
   } = props;
   // const rtValue = undefined !== value ? value : initialValue;
-  const rtValue = setRuntimeValue(
+  const rtValue = setWidgetValue(
     {
       value,
       initialValue,

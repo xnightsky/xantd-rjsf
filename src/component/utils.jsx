@@ -18,7 +18,7 @@ export function preventEvent(e) {
 }
 
 
-export function setRuntimeValue(
+export function setWidgetValue(
   {
     value = undefined,
     initialValue = undefined,
@@ -48,8 +48,8 @@ export function setRuntimeValue(
 }
 
 
-export function setRuntimeValueFromProps(props) {
-  return setRuntimeValue(
+export function setWidgetValueFromProps(props) {
+  return setWidgetValue(
     {
       value: props.value,
       initialValue: props.initialValue,

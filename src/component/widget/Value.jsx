@@ -7,7 +7,7 @@ import {
 
 import {
   getValueFromEvent,
-  setRuntimeValueFromProps,
+  setWidgetValueFromProps,
 } from "../utils.jsx";
 
 
@@ -23,7 +23,7 @@ class IValueWidget extends React.Component {
     super (props);
     this.state = {
       // value: undefined !== props.value ? props.value : props.initialValue,
-      value: setRuntimeValueFromProps(props),
+      value: setWidgetValueFromProps(props),
     };
   }
 
@@ -31,7 +31,7 @@ class IValueWidget extends React.Component {
     if (nextProps.value != this.state.value) {
       this.setState({
         // value: nextProps.value,
-        value: setRuntimeValueFromProps(nextProps),
+        value: setWidgetValueFromProps(nextProps),
       });
     }
   }
