@@ -19,7 +19,7 @@ module.exports = {
     // publicPath: publicPath,
   },
   plugins: [
-    new webpack.NamedModulesPlugin(),
+    // new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ],
   devtool: "inline-source-map",
@@ -30,6 +30,7 @@ module.exports = {
     contentBase: distPath,
     compress: true,
     hot: true,
+    // hotOnly: true,
     historyApiFallback: true,
     https: false,
     noInfo: false,
