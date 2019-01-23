@@ -5,9 +5,16 @@ import {
   Col,
 } from "antd";
 
-import SchemaField from "$src/component/Form/field/SchemaField.jsx";
+import fields from "../../component/Form/field";
 import config from "./config";
-import Playground from "./Playground.jsx";
+import Playground from "./Playground";
+
+
+console.log("<fields>", fields);
+const SchemaField = fields.SchemaField;
+
+
+const barHeight = 100;
 
 
 class Example extends React.Component {
@@ -35,6 +42,7 @@ class Example extends React.Component {
         <div
           style={{
             display: "flex",
+            height: barHeight,
           }}
         >
         {
@@ -67,11 +75,16 @@ class Example extends React.Component {
         <Row
           type="flex"
           justify="center"
+          style={{
+            height: `calc(100vh - ${barHeight}px)`,
+            overflowY: "auto",
+          }}
         >
           <Col
             span={14}
             style={{
               height: "100%",
+              overflowY: "hidden",
             }}
           >
             <Playground
@@ -84,7 +97,8 @@ class Example extends React.Component {
           <Col
             span={10}
             style={{
-              // margin: "0 auto",
+              height: "100%",
+              overflowY: "auto",
             }}
           >
           {

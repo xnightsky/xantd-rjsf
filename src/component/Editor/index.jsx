@@ -3,7 +3,7 @@ import React from "react";
 import MonacoEditor from "react-monaco-editor";
 
 
-export default function Editor(
+function Editor(
   {
     value,
     ...restProps
@@ -27,3 +27,6 @@ export default function Editor(
     />
   );
 }
+
+
+export default Editor;

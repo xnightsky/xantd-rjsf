@@ -5,7 +5,7 @@ import {
   Col,
   Card,
 } from "antd";
-import Editor from "$src/component/Editor/";
+import Editor from "../../component/Editor/";
 
 
 const EditorCard = ({
