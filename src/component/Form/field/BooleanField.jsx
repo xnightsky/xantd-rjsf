@@ -4,6 +4,7 @@ import React from "react";
 import {
   getWidget,
   getDefaultRegistry,
+  getUiOptions,
 } from "../Registry.jsx";
 import {
   toDefault,
