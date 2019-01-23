@@ -5,16 +5,17 @@ import {
   Col,
 } from "antd";
 
-import fields from "../../component/Form/field";
+// import fields from "../../component/Form/field";
+import fields from "$src/component/Form/field";
 import config from "./config";
 import Playground from "./Playground";
 
 
-console.log("<fields>", fields);
+// console.log("<fields>", fields);
 const SchemaField = fields.SchemaField;
 
 
-const barHeight = 100;
+const barHeight = 50;
 
 
 class Example extends React.Component {
