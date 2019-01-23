@@ -77,6 +77,9 @@ module.exports = {
 
     ]
   },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
   plugins: [
     new webpack.DefinePlugin({
       // __development__: JSON.stringify(process.env.NODE_ENV),
