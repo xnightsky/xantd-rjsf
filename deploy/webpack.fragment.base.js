@@ -12,7 +12,9 @@ const {
 const ctlvar = require("./ctlvar.js");
 const {
   env: {
-    rootname, distPath, devMode,
+    // rootname,
+    distPath,
+    devMode,
   } = {},
   webpack: {
     parallel,
@@ -30,6 +32,9 @@ module.exports = {
     index: './src/index.js',
   },
   devtool: 'source-map',
+  resolve: {
+    extensions: [".js", ".jsx",],
+  },
   module: {
     rules: [
       {
@@ -73,12 +78,8 @@ module.exports = {
                 outputPath: 'images'
             }
         }]
-    }
-
+      }
     ]
-  },
-  resolve: {
-    extensions: ['.js', '.jsx']
   },
   plugins: [
     new webpack.DefinePlugin({

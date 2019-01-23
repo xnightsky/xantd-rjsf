@@ -2,7 +2,10 @@ const path = require('path');
 // const webpack = require('webpack');
 const merge = require('webpack-merge');
 
-const { fragmentFinder, } = require("./util.js");
+const {
+  fragmentMerge,
+  fragmentFinder,
+} = require("./util.js");
 const ctlvar = require("./ctlvar.js");
 const {
   env: {
