@@ -4,8 +4,6 @@ import {
   Card,
 } from "antd";
 
-import SchemaField from "./field/SchemaField.jsx";
-
 
 const DefaultFieldTemplate = (props) => {
   const {
@@ -92,22 +90,24 @@ const DefaultSchemaFieldTemplate = (
     name,
     schema,
     registry,
+    children,
     ...restProps
   }
 ) => {
-  return (
-    <SchemaField
-      {
-        ...{
-          key: name,
-          name: name,
-          schema,
-          registry,
-          ...restProps,
-        }
-      }
-    />
-  );
+  // return (
+  //   <SchemaField
+  //     {
+  //       ...{
+  //         key: name,
+  //         name: name,
+  //         schema,
+  //         registry,
+  //         ...restProps,
+  //       }
+  //     }
+  //   />
+  // );
+  return children;
 };
 
 

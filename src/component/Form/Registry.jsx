@@ -5,11 +5,18 @@ import {
   DefaultArrayFieldTemplate,
   DefaultSchemaFieldTemplate,
 } from "./Template.jsx";
-import widgets from "./widget/";
-import fields from "./field/";
-
+// import fields from "./field/";
+// import widgets from "./widget/";
+// console.log("[widgets]", widgets);
 // console.log("[fields]", fields);
 
+
+function importWidgets() {
+  return require("./widget/").default;
+}
+function importFields() {
+  return require("./field/").default;
+}
 
 
 const COMPONENT_TYPES = {
@@ -59,6 +66,7 @@ export function getSchemaType(schema) {
 }
 
 export function getField(schema) {
+  const fields = importFields();
   const fieldName = COMPONENT_TYPES[getSchemaType(schema)]
   return fields[fieldName];
 }
@@ -68,7 +76,8 @@ export function getSchemaField() {
 }
 
 
-export function getWidget(schema, widget = "default", registeredWidgets = widgets) {
+export function getWidget(schema, widget = "default", registeredWidgets = null) {
+  registeredWidgets = registeredWidgets || importWidgets();
   if (typeof widget === "function") {
     return widget;
   }
@@ -100,7 +109,8 @@ export function getUiOptions(uiSchema) {
 
 export function getDefaultRegistry (restProps = {}) {
   return {
-    fields,
+    fields: importFields(),
+    widget: importWidgets(),
     SchemaFieldTemplate: DefaultSchemaFieldTemplate,
     FieldTemplate: DefaultFieldTemplate,
     ArrayFieldTemplate: DefaultArrayFieldTemplate,

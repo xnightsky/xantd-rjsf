@@ -27,6 +27,7 @@ function renderDefaultArrayField(props) {
   //
   const Widget = getWidget(schema, "default");
   const SchemaFieldTemplate = registry.SchemaFieldTemplate;
+  const SchemaField = registry.fields.SchemaField;
   return (
     <Widget
       schema={schema}
@@ -40,24 +41,27 @@ function renderDefaultArrayField(props) {
       (itemProps, index) => {
         const ikey = `${index}`;
         const iuiSchema = uiSchema[ikey];
+        const irestProps = {
+          key: ikey,
+          name: ikey,
+          schema: items,
+          uiSchema: iuiSchema,
+          registry: getDefaultRegistry(
+            {
+              // array 列表需要定制 Template
+              FieldTemplate: registry.ArrayFieldTemplate,
+            }
+          ),
+          ...itemProps,
+        };
         return (
           <SchemaFieldTemplate
-            {
-              ...{
-                key: ikey,
-                name: ikey,
-                schema: items,
-                uiSchema: iuiSchema,
-                registry: getDefaultRegistry(
-                  {
-                    // array 列表需要定制 Template
-                    FieldTemplate: registry.ArrayFieldTemplate,
-                  }
-                ),
-                ...itemProps,
-              }
-            }
-          />
+            {...irestProps}
+          >
+            <SchemaField
+              {...irestProps}
+            />
+          </SchemaFieldTemplate>
         );
       }
     }
@@ -111,6 +115,7 @@ function renderFixedArray(props) {
   //
   const Widget = getWidget(schema, widgetName);
   const SchemaFieldTemplate = registry.SchemaFieldTemplate;
+  const SchemaField = registry.fields.SchemaField;
   return (
     <Widget
       options={{
@@ -134,24 +139,27 @@ function renderFixedArray(props) {
           console.warn("[ArrayField]: additionalItems 未配置，但是依然能添加元素!")
           return null;
         }
+        const irestProps = {
+          key: ikey,
+          name: ikey,
+          schema: iItemSchema,
+          registry: getDefaultRegistry(
+            {
+              // array 列表需要定制 Template
+              FieldTemplate: registry.ArrayFieldTemplate,
+            }
+          ),
+          ...itemProps,
+        };
         return (
           <div key={`array-item-${index}`}>
             <SchemaFieldTemplate
-              {
-                ...{
-                  key: ikey,
-                  name: ikey,
-                  schema: iItemSchema,
-                  registry: getDefaultRegistry(
-                    {
-                      // array 列表需要定制 Template
-                      FieldTemplate: registry.ArrayFieldTemplate,
-                    }
-                  ),
-                  ...itemProps,
-                }
-              }
-            />
+              {...irestProps}
+            >
+              <SchemaField
+                {...irestProps}
+              />
+            </SchemaFieldTemplate>
           </div>
         );
       }

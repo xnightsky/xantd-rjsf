@@ -38,25 +38,26 @@ class ObjectField extends IBaseField {
     } = schema;
     //
     const SchemaFieldTemplate = registry.SchemaFieldTemplate;
-    // const Widget = getWidget(schema);
+    const SchemaField = registry.fields.SchemaField;
     return _.map(
       properties,
       (ischema, ikey) => {
         const iuiSchema = uiSchema[ikey];
+        const irestProps = {
+          key: ikey,
+          name: ikey,
+          schema: ischema,
+          uiSchema: iuiSchema,
+          registry,
+          ...this.getValueProps(ikey, false),
+        };
         return (
           <SchemaFieldTemplate
-            {
-              ...{
-                key: ikey,
-                name: ikey,
-                schema: ischema,
-                uiSchema: iuiSchema,
-                registry,
-                ...this.getValueProps(ikey, false),
-              }
-            }
+            {...irestProps}
           >
-            {/* <Widget /> */}
+            <SchemaField
+              {...irestProps}
+            />
           </SchemaFieldTemplate>
         );
       }
