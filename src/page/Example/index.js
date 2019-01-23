@@ -1,34 +1,37 @@
 import _ from "lodash";
 import React from "react";
 import {
+  Row,
+  Col,
 } from "antd";
 
-import SchemaField from "$src/component/field/SchemaField.jsx";
+import SchemaField from "$src/component/Form/field/SchemaField.jsx";
 import config from "./config";
+import Playground from "./Playground.jsx";
 
 
 class Example extends React.Component {
+  static defaultProps = {
+    defaultKey: "simple",
+    // defaultKey: "array",
+  };
 
   constructor(props) {
     super(props);
     this.state = {
-      current: "simple",
-      // current: "array",
+      key: props.defaultKey,
+      value: config[props.defaultKey],
     };
   }
 
   render () {
     const {
-      current,
+      key,
+      value,
     } = this.state;
-    const cfgProps = config[current];
+    const cfgProps = value;
     return (
-      <div
-        style={{
-          width: "80%",
-          margin: "0 auto",
-        }}
-      >
+      <div>
         <div
           style={{
             display: "flex",
@@ -42,7 +45,8 @@ class Example extends React.Component {
                 href="javascript: void(0);"
                 onClick={() => {
                   this.setState({
-                    current: ikey,
+                    key: ikey,
+                    value: config[ikey],
                   })
                 }}
                 style={{
@@ -57,23 +61,47 @@ class Example extends React.Component {
             )
           })
         }
+        <br />
+        <br />
         </div>
-        <br />
-        <br />
-        <br />
-        {
-          cfgProps ? (
-            <SchemaField
-              key={current}
-              initialValue={cfgProps.initialValue}
-              schema={cfgProps.schema}
-              uiSchema={cfgProps.uiSchema}
-              onChange={(e) => {
-                console.log("onC", e);
+        <Row
+          type="flex"
+          justify="center"
+        >
+          <Col
+            span={14}
+            style={{
+              height: "100%",
+            }}
+          >
+            <Playground
+              style={{
+                flex: 1,
               }}
+              value={value}
             />
-          ) : null
-        }
+          </Col>
+          <Col
+            span={10}
+            style={{
+              // margin: "0 auto",
+            }}
+          >
+          {
+            cfgProps ? (
+              <SchemaField
+                key={key}
+                initialValue={cfgProps.initialValue}
+                schema={cfgProps.schema}
+                uiSchema={cfgProps.uiSchema}
+                onChange={(e) => {
+                  console.log("onC", e);
+                }}
+              />
+            ) : null
+          }
+          </Col>
+        </Row>
       </div>
     )
   }

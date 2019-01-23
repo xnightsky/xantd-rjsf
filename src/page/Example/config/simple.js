@@ -40,10 +40,9 @@ export default {
     }
   },
   uiSchema: {
-    "listOfStrings": {
-      "items": {
-        "ui:emptyValue": ""
-      }
+    "firstName": {
+      "ui:autofocus": true,
+      "ui:emptyValue": ""
     },
   },
   initialValue: {
