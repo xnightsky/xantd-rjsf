@@ -13,10 +13,11 @@ const {
 // module.exports = function (webpackConfig) {
 //   return webpackConfig;
 // };
+
 module.exports = {
   resolve: {
     alias: {
-      $src: path.resolve(rootname, 'src/'),
+      "$src": path.resolve(rootname, 'src/'),
     }
   }
 };

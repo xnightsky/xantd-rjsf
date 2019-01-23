@@ -30,7 +30,7 @@ module.exports = {
     contentBase: distPath,
     compress: true,
     hot: true,
-    hotOnly: true,
+    // hotOnly: true,
     historyApiFallback: true,
     https: false,
     noInfo: false,
