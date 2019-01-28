@@ -1,5 +1,6 @@
 import _ from "lodash";
 import React from "react";
+import update from "immutability-helper";
 import {
   Row,
   Col,
@@ -37,7 +38,6 @@ class Example extends React.Component {
       key,
       value,
     } = this.state;
-    const cfgProps = value;
     return (
       <div>
         <div
@@ -93,6 +93,11 @@ class Example extends React.Component {
                 flex: 1,
               }}
               value={value}
+              onChange={(value) => {
+                this.setState({
+                  value,
+                })
+              }}
             />
           </Col>
           <Col
@@ -103,14 +108,27 @@ class Example extends React.Component {
             }}
           >
           {
-            cfgProps ? (
+            value ? (
               <SchemaField
                 key={key}
-                initialValue={cfgProps.initialValue}
-                schema={cfgProps.schema}
-                uiSchema={cfgProps.uiSchema}
-                onChange={(e) => {
-                  console.log("onC", e);
+                initialValue={value.initialValue}
+                value={value.initialValue}
+                schema={value.schema}
+                uiSchema={value.uiSchema}
+                onChange={(evalue) => {
+                  console.log("onC", evalue);
+                  // update(
+                  //   this.state,
+                  //   {
+                  //     value: {
+                  //       initialValue: {
+                  //         $set: {
+                  //           evalue,
+                  //         }
+                  //       }
+                  //     }
+                  //   }
+                  // );
                 }}
               />
             ) : null

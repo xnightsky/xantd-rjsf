@@ -6,10 +6,14 @@ import {
   Card,
 } from "antd";
 import Editor from "../../component/Editor/";
+import IBaseField from "../../component/Form/field/IBaseField.jsx";
 
 
-const EditorCard = ({
-  title, value, containerStyle = {}, ...restProps
+const EditorPanel = ({
+  value,
+  onChange,
+  title,
+  containerStyle = {}, ...restProps
 }) => {
   return (
     <Card
@@ -25,15 +29,9 @@ const EditorCard = ({
       {
         // autosize
       }
-        <Editor
-          value={
-            "object" === typeof value ? JSON.stringify(
-              value,
-              null,
-              2
-            ) : value
-          }
-          onChange={null}
+        <Editor.JSON
+          value={value }
+          onChange={onChange}
           {...restProps}
         />
       </div>
@@ -42,26 +40,11 @@ const EditorCard = ({
 }
 
 
-class Playground extends React.Component {
+class Playground extends IBaseField {
   static defaultProps = {
     value: {},
     onChange: null,
   };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: props.value,
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.value != this.state.value) {
-      this.setState({
-        value: nextProps.value,
-      });
-    }
-  }
 
   render () {
     const {
@@ -75,34 +58,37 @@ class Playground extends React.Component {
       <div
         {...restProps}
       >
-        <EditorCard
+        <EditorPanel
           containerStyle={{
             height: 240,
           }}
           title="schema"
-          value={value.schema}
+          value={this.attrGetter("schema")()}
+          onChange={this.attrSetter("schema")}
         />
         <Row>
           <Col
             span={12}
           >
-            <EditorCard
+            <EditorPanel
               containerStyle={{
                 height: 240,
               }}
               title="uiSchema"
-              value={value.uiSchema}
+              value={this.attrGetter("uiSchema")()}
+              onChange={this.attrSetter("uiSchema")}
             />
           </Col>
           <Col
             span={12}
           >
-            <EditorCard
+            <EditorPanel
               containerStyle={{
                 height: 240,
               }}
               title="data"
-              value={value.initialValue}
+              value={this.attrGetter("initialValue")()}
+              onChange={this.attrSetter("initialValue")}
             />
           </Col>
         </Row>
