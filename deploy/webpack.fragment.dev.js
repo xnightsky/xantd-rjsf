@@ -15,8 +15,10 @@ module.exports = {
   mode: "development",
   output: {
     path: distPath,
-    filename: '[name].[hash].bundle.js',
     // publicPath: publicPath,
+    //
+    filename: '[name].[hash].bundle.js',
+    // filename: '[name].bundle.js',
   },
   plugins: [
     // new webpack.NamedModulesPlugin(),

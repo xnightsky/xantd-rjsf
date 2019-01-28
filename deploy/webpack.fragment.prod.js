@@ -22,12 +22,14 @@ module.exports = {
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
+        parallel: true,
+        sourceMap: true,
         uglifyOptions: {
+          // ecma:8,
           compress: {
             warnings: false
           }
         },
-        parallel: true,
       })
     ]
   },
