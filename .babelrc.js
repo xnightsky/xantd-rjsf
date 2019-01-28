@@ -1,6 +1,13 @@
 module.exports = {
   "presets": [
-      "@babel/preset-env",
+      // "@babel/preset-env",
+      [
+        '@babel/preset-env',
+        {
+          shippedProposals: true, // to support spread operators
+          forceAllTransforms: true
+        }
+      ],
       "@babel/preset-react"
   ],
   "env": {
@@ -8,10 +15,19 @@ module.exports = {
     //     "plugins": ["react-hot-loader/babel"]
     // }
     "production": {
-      "plugins": ["react-remove-prop-types"]
+      "plugins": [
+        [
+          "transform-react-remove-prop-types",
+          {
+            "mode": "wrap",
+            "ignoreFilenames": ["node_modules"]
+          }
+        ]
+      ]
     }
   },
   "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
     [
       "@babel/plugin-transform-runtime",
       {
