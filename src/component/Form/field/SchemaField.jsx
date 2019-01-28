@@ -47,7 +47,8 @@ class SchemaField extends IBaseField {
           schema={schema}
           uiSchema={uiSchema}
           {
-            ...this.getValueProps(null, false)
+            // ...this.getValueProps(null, false)
+            ...this.getValueProps(null, true)
           }
         >
         </Field>
