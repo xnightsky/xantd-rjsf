@@ -1,4 +1,5 @@
-解决 production 构建时 monaco-editor 的问题
+
+1. 解决 production 构建时 monaco-editor 的问题
 ```
 ERROR in ./node_modules/monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution.js
 Module build failed (from ./node_modules/babel-loader/lib/index.js):
