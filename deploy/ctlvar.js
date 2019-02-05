@@ -15,7 +15,7 @@ module.exports = {
   webpack: {
     // 并行处理
     // TODO: 扩展成 {} 详细配置
-    parallel: true,
+    parallel: false,
     // 加载 webpack 分析插件
     analyzer: false,
     print: {
