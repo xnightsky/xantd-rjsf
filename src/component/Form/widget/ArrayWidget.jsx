@@ -200,8 +200,11 @@ class ArrayWidget extends React.Component {
     const {
       removable,
       orderable,
+      minItems = 0,
     } = getOptionsWithProps(this.props);
-    const rtRemovable = isAble(removable, index, indexLength);
+    const rtRemovable = minItems < indexLength
+      && isAble(removable, index, indexLength)
+    ;
     const rtOrderable = isAble(orderable, index, indexLength);
     // console.log("renderOperationPopover", element);
     if (!rtRemovable && !rtOrderable) {
