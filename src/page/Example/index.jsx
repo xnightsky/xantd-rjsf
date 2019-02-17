@@ -29,7 +29,10 @@ class Example extends React.Component {
     super(props);
     this.state = {
       key: props.defaultKey,
-      value: config[props.defaultKey],
+      value: {
+        value: null,
+        ...config[props.defaultKey],
+      },
     };
   }
 
@@ -61,6 +64,7 @@ class Example extends React.Component {
                 style={{
                   display: "block",
                   minWidth: 120,
+                  margin: 10,
                 }}
               >
                 {
@@ -112,23 +116,23 @@ class Example extends React.Component {
               <SchemaField
                 key={key}
                 initialValue={value.initialValue}
-                value={value.initialValue}
+                value={value.value}
                 schema={value.schema}
                 uiSchema={value.uiSchema}
                 onChange={(evalue) => {
-                  console.log("onC", evalue);
-                  // update(
-                  //   this.state,
-                  //   {
-                  //     value: {
-                  //       initialValue: {
-                  //         $set: {
-                  //           evalue,
-                  //         }
-                  //       }
-                  //     }
-                  //   }
-                  // );
+                  console.log("Example.onC", evalue);
+                  this.setState(
+                    update(
+                      this.state,
+                      {
+                        value: {
+                          value: {
+                            $set: evalue,
+                          }
+                        }
+                      }
+                    )
+                  );
                 }}
               />
             ) : null

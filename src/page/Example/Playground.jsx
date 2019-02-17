@@ -87,8 +87,11 @@ class Playground extends IBaseField {
                 height: 240,
               }}
               title="data"
-              value={this.attrGetter("initialValue")()}
-              onChange={this.attrSetter("initialValue")}
+              value={
+                this.attrGetter("value")()
+                  || this.attrGetter("initialValue")()
+              }
+              onChange={this.attrSetter("value")}
             />
           </Col>
         </Row>
