@@ -6,6 +6,8 @@ import {
   getValueFromEvent,
   // getValueFromPreventEvent,
 } from "../utils.jsx";
+import { verbose, } from "../gconfig.jsx";
+
 
 
 class IBaseField extends React.Component {
@@ -20,8 +22,11 @@ class IBaseField extends React.Component {
     };
   }
 
+
+  // 如果无覆盖，自动使用默认 componentWillReceiveProps 比对
   componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(nextProps.value, this.props.value)) {
+    if (!_.isEqual(IBaseField.value, this.props.value)) {
+      verbose > 0 && console.log("IBaseField.componentWillReceiveProps: !=", nextProps.value, this.props.value);
       this.setState({
         value: nextProps.value,
       });
@@ -103,7 +108,7 @@ class IBaseField extends React.Component {
   getValueProps(attrName, bridge) {
     if (bridge) {
       return {
-        value: this.props.value,
+        value: this.props.value || this.props.initialValue,
         onChange: this.props.onChange,
       };
     }

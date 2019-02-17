@@ -26,6 +26,15 @@ class ObjectField extends IBaseField {
     this.state = (this.state || {});
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!_.isEqual(nextProps.value, this.props.value)) {
+      console.log("ObjectField.componentWillReceiveProps: !=", nextProps.value, this.props.value);
+      this.setState({
+        value: nextProps.value,
+      });
+    }
+  }
+
   render() {
     const {
       name,

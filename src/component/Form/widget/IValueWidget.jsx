@@ -9,6 +9,7 @@ import {
   getValueFromEvent,
   setWidgetValueFromProps,
 } from "../utils.jsx";
+import { verbose, } from "../gconfig.jsx";
 
 
 class IValueWidget extends React.Component {
@@ -29,6 +30,7 @@ class IValueWidget extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.value != this.state.value) {
+      verbose > 0 && console.log("IValueWidget.componentWillReceiveProps: !=", nextProps.value, this.state.value);
       this.setState({
         // value: nextProps.value,
         value: setWidgetValueFromProps(nextProps),

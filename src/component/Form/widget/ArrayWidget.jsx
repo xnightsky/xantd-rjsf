@@ -15,6 +15,7 @@ import {
   setWidgetValue,
   // setWidgetValueFromProps,
 } from "../utils.jsx";
+import { verbose, } from "../gconfig.jsx";
 
 
 function getOptionsWithProps (props) {
@@ -91,6 +92,7 @@ class ArrayWidget extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.value != this.props.value) {
+      verbose > 0 && console.log("ArrayWidget.componentWillReceiveProps!=", nextProps.value, this.props.value);
       this.setState({
         // value: normalizeValueWithProps(
         //   nextProps.value,

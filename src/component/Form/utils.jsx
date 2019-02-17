@@ -35,15 +35,18 @@ export function setWidgetValue(
   if (!rtValue && undefined !== emptyValue) {
     rtValue = emptyValue;
   }
-  if (rtValue !== value) {
-    if (onChange) {
-      requestAnimationFrame(
-        () => {
-          onChange(rtValue);
-        }
-      )
-    }
-  }
+  // BUG: default 处理在此处发现死循环
+  // if (rtValue !== value) {
+  //   if (onChange) {
+  //     requestAnimationFrame(
+  //       () => {
+  //         onChange(rtValue);;
+  //       }
+  //     );
+  //   }
+  // }
+  //
+  // INFO: initialValue 会通过下次 value + onChange 循环赋值到 props.value
   return rtValue;
 }
 
