@@ -6,7 +6,7 @@ import {
 } from "antd";
 
 import {
-  setWidgetValue,
+  setWidgetValueAndTriggerChange,
 } from "../utils.jsx";
 
 
@@ -20,13 +20,14 @@ function SwitchWidget(props) {
     ...restProps
   } = props;
   // const rtValue = undefined !== value ? value : initialValue;
-  const rtValue = setWidgetValue(
+  const rtValue = setWidgetValueAndTriggerChange(
     {
       value,
       initialValue,
       emptyValue,
       onChange,
-    }
+    },
+    props,
   );
   return (
     <Switch

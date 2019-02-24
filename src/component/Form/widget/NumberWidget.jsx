@@ -6,7 +6,7 @@ import {
 } from "antd";
 
 import {
-  setWidgetValue,
+  setWidgetValueAndTriggerChange,
 } from "../utils.jsx";
 
 
@@ -19,13 +19,14 @@ function NumberWidget (props) {
     ...restProps
   } = props;
   // const rtValue = undefined !== value ? value : initialValue;
-  const rtValue = setWidgetValue(
+  const rtValue = setWidgetValueAndTriggerChange(
     {
       value,
       initialValue,
       emptyValue,
       onChange,
-    }
+    },
+    props,
   );
   return (
     <InputNumber

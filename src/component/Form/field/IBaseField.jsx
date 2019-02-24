@@ -7,6 +7,10 @@ import {
   // getValueFromPreventEvent,
 } from "../utils.jsx";
 import { verbose, } from "../gconfig.jsx";
+import {
+  clsUseStateAttr,
+  clsUseStatePath,
+} from "../../QuickBinder.jsx";
 
 
 
@@ -108,21 +112,31 @@ class IBaseField extends React.Component {
   getValueProps(attrName, bridge) {
     if (bridge) {
       return {
-        value: this.props.value || this.props.initialValue,
+        value: undefined !== this.props.value ? this.props.value : this.props.initialValue,
         onChange: this.props.onChange,
       };
     }
 
     if (attrName) {
+      // return {
+      //   value: this.attrGetter(attrName)(),
+      //   onChange: this.attrSetter(attrName),
+      // };
+      const [ value, onChange, ] = clsUseStateAttr(this, attrName);
       return {
-        value: this.attrGetter(attrName)(),
-        onChange: this.attrSetter(attrName),
+        value,
+        onChange,
       };
     } else {
+      // return {
+      //   value: this.valueGetter()(),
+      //   onChange: this.valueSetter(),
+      // };
+      const [ value, onChange, ] = clsUseStateAttr(this, "value");
       return {
-        value: this.valueGetter()(),
-        onChange: this.valueSetter(),
-      }
+        value,
+        onChange,
+      };
     }
   }
 }

@@ -35,29 +35,45 @@ export function setWidgetValue(
   if (!rtValue && undefined !== emptyValue) {
     rtValue = emptyValue;
   }
-  // BUG: default 处理在此处发现死循环
-  // if (rtValue !== value) {
-  //   if (onChange) {
-  //     requestAnimationFrame(
-  //       () => {
-  //         onChange(rtValue);;
-  //       }
-  //     );
-  //   }
-  // }
-  //
   // INFO: initialValue 会通过下次 value + onChange 循环赋值到 props.value
   return rtValue;
 }
 
 
+export function setWidgetValueAndTriggerChange(
+  option,
+  thisProps,
+) {
+  // 通过和 thisProps compare 解决 loop crash
+  const {
+    value = undefined,
+    initialValue = undefined,
+    emptyValue = undefined,
+    onChange = undefined,
+  } = option;
+  const rtValue = setWidgetValue(option);
+  console.log("setWidgetValueAndTriggerChange", rtValue, thisProps.value)
+  if (!_.isEqual(rtValue, thisProps.value)) {
+    debugger;
+    onChange && requestAnimationFrame(
+      () => {
+        debugger;
+        onChange(rtValue);;
+      }
+    );
+  }
+  return rtValue;
+}
+
+
 export function setWidgetValueFromProps(props) {
-  return setWidgetValue(
+  return setWidgetValueAndTriggerChange(
     {
       value: props.value,
       initialValue: props.initialValue,
       emptyValue: props.emptyValue,
       onChange: props.onChange,
-    }
+    },
+    props,
   )
 }

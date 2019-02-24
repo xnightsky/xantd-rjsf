@@ -12,8 +12,7 @@ import {
 import {
   preventEvent,
   getValueFromPreventEvent,
-  setWidgetValue,
-  // setWidgetValueFromProps,
+  setWidgetValueAndTriggerChange,
 } from "../utils.jsx";
 import { verbose, } from "../gconfig.jsx";
 
@@ -74,13 +73,14 @@ class ArrayWidget extends React.Component {
         //   (undefined !== props.value ? props.value : props.initialValue)
         //     || []
         // ),
-        setWidgetValue(
+        setWidgetValueAndTriggerChange(
           {
             value: props.value,
             initialValue: props.initialValue,
             emptyValue: [],
             onChange: props.onChange,
-          }
+          },
+          props,
         ),
         props
       ),
@@ -99,13 +99,14 @@ class ArrayWidget extends React.Component {
         //   nextProps
         // ),
         value: normalizeValueWithProps(
-          setWidgetValue(
+          setWidgetValueAndTriggerChange(
             {
               value: nextProps.value,
               initialValue: nextProps.initialValue,
               emptyValue: [],
               onChange: nextProps.onChange,
-            }
+            },
+            this.props,
           ),
           nextProps
         ),
