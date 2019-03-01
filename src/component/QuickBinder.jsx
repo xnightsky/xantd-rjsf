@@ -1,11 +1,25 @@
-// v0.5
+// v0.6
 import _ from "lodash";
 import React from "react";
 import update from 'immutability-helper';
 
 
-function getValueFromEvent(event) {
+export function getValueFromEvent(event) {
   return (event && event.target) ? event.target.value : event;
+}
+
+
+export function preventEvent(e) {
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+
+export function getValueFromPreventEvent(e) {
+  if (e && e.target) {
+    preventEvent(e)
+  }
+  return getValueFromEvent(e);
 }
 
 
@@ -114,28 +128,43 @@ export function getValueProps (props) {
   return {
     value: props.value,
     onChange: props.onChange,
+    defaultValue:  props.defaultValue,
   }
 }
 
 
-export function getWidgetValueProps(
-  props,
-  option = {},
-) {
-  const {
-    value,
-    onChange,
-  } = getValueProps(props);
+export function getWidgetValueProps(props) {
   const {
     parse,
     format,
-  } = option;
-  return [
-    format ? format(value) : format,
-    onChange ? triggerChange : onChange,
-  ];
+    value,
+    onChange,
+    defaultValue,
+  } = props;
+  let rtvalue = undefined != value ? value : defaultValue;
+  rtvalue = format ? format(rtvalue) : rtvalue;
+  return {
+    value: rtvalue,
+    onChange: onChange ? triggerChange : onChange,
+  };
   function triggerChange (evalue) {
-    const rtValue = parse ? parse(evalue) : evalue;
-    return onChange(rtValue);
+    const rtevalue = parse ? parse(evalue) : evalue;
+    return onChange(rtevalue);
+  }
+}
+
+export function triggerWidgetDefaultValue(state, props) {
+  const onChange = state.onChange || props.onChange;
+  if (onChange) {
+    if (!_.isEqual(state.value, props.value)) {
+      // BUG: ...
+      // onChange(state.value);
+      // INFO: 解决奇怪的并行（非并发） setState 覆盖
+      onChange && requestAnimationFrame(
+        () => {
+          onChange(state.value);;
+        }
+      );
+    }
   }
 }
