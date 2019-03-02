@@ -13,7 +13,10 @@ const EditorPanel = ({
   value,
   onChange,
   title,
-  containerProps = {},
+  containerProps: {
+    style = {},
+    ...containerRestProps
+  } = {},
   ...restProps
 }) => {
   return (
@@ -21,23 +24,36 @@ const EditorPanel = ({
       data-editor-container
       bordered={false}
       className="ant-card ant-card-bordered"
-      {...containerProps}
+      style={{
+        overflow: "hidden",
+        ...style,
+      }}
+      {...containerRestProps}
     >
       <div
-        className="ant-card ant-card-head"
+        className="ant-card-head"
+        style={{
+          height: 27,
+          minHeight: 27,
+        }}
       >
       {
         title
       }
       </div>
-      {
-        // autosize
-      }
-      <Editor.JSON
-        value={value }
-        onChange={onChange}
-        {...restProps}
-      />
+      <div
+        className="ant-card-body"
+        style={{
+          height: "calc(100% - 27px)",
+          padding: 0,
+        }}
+      >
+        <Editor.JSON
+          value={value }
+          onChange={onChange}
+          {...restProps}
+        />
+      </div>
     </div>
   )
 }
@@ -60,9 +76,8 @@ class Playground extends IBaseField {
     const baseEditorProps = {
       containerProps: {
         style: {
-          // border: "1px solid red",
-          height: "30vh",
-          margin: "10px",
+          height: "45vh",
+          margin: "5px",
         },
       }
     }

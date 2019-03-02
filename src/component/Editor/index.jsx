@@ -28,6 +28,7 @@ function JSONEditor(
     format = formatJSONString,
     parse = parseJSONObject,
     onError,
+    options = {},
     ...restProps
   }
 ) {
@@ -37,6 +38,12 @@ function JSONEditor(
       height="100%"
       language="json"
       theme="vs"
+      options={{
+        minimap: null,
+        automaticLayout: true,
+        scrollBeyondLastLine: false,
+        ...options,
+      }}
       value={format ? format(value) : value}
       onChange={
         onChange ? (newValue, e) => {
