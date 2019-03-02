@@ -225,6 +225,8 @@ const schema = {
         }
       }
     },
+
+
     // "unorderable": {
     //   "title": "Unorderable items",
     //   "type": "array",
@@ -273,7 +275,7 @@ const schema = {
   }
 };
 
-const initialValue = {
+const defaultValue = {
   "listOfStrings": [
     "foo",
     "bar"
@@ -314,6 +316,8 @@ const initialValue = {
       "dolor"
     ]
   ],
+
+
   // "unorderable": [
   //   "one",
   //   "two"
@@ -337,5 +341,5 @@ const initialValue = {
 
 export default {
   schema,
-  initialValue,
+  defaultValue,
 };

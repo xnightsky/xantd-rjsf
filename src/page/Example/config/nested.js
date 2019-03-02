@@ -41,7 +41,7 @@ export default {
       }
     }
   },
-  initialValue: {
+  defaultValue: {
     "title": "My current tasks",
     "tasks": [
       {

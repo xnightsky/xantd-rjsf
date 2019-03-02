@@ -42,10 +42,10 @@ export default {
   uiSchema: {
     "firstName": {
       "ui:autofocus": true,
-      "ui:emptyValue": ""
+      // "ui:emptyValue": ""
     },
   },
-  initialValue: {
+  defaultValue: {
     "firstName": "Chuck",
     "lastName": "Norris",
     "age": 75,

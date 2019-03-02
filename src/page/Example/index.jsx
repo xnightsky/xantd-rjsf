@@ -115,7 +115,7 @@ class Example extends React.Component {
             value ? (
               <SchemaField
                 key={key}
-                initialValue={value.initialValue}
+                defaultValue={value.defaultValue}
                 value={value.value}
                 schema={value.schema}
                 uiSchema={value.uiSchema}

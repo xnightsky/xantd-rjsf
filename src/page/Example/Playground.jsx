@@ -13,29 +13,32 @@ const EditorPanel = ({
   value,
   onChange,
   title,
-  containerStyle = {}, ...restProps
+  containerProps = {},
+  ...restProps
 }) => {
   return (
-    <Card
-      title={title}
+    <div
+      data-editor-container
       bordered={false}
+      className="ant-card ant-card-bordered"
+      {...containerProps}
     >
       <div
-        data-editor-container
-        style={{
-          ...containerStyle
-        }}
+        className="ant-card ant-card-head"
       >
+      {
+        title
+      }
+      </div>
       {
         // autosize
       }
-        <Editor.JSON
-          value={value }
-          onChange={onChange}
-          {...restProps}
-        />
-      </div>
-    </Card>
+      <Editor.JSON
+        value={value }
+        onChange={onChange}
+        {...restProps}
+      />
+    </div>
   )
 }
 
@@ -54,14 +57,21 @@ class Playground extends IBaseField {
     const {
       value = {},
     } = this.state;
+    const baseEditorProps = {
+      containerProps: {
+        style: {
+          // border: "1px solid red",
+          height: "30vh",
+          margin: "10px",
+        },
+      }
+    }
     return (
       <div
         {...restProps}
       >
         <EditorPanel
-          containerStyle={{
-            height: 240,
-          }}
+          {...baseEditorProps}
           title="schema"
           value={this.attrGetter("schema")()}
           onChange={this.attrSetter("schema")}
@@ -71,9 +81,7 @@ class Playground extends IBaseField {
             span={12}
           >
             <EditorPanel
-              containerStyle={{
-                height: 240,
-              }}
+            {...baseEditorProps}
               title="uiSchema"
               value={this.attrGetter("uiSchema")()}
               onChange={this.attrSetter("uiSchema")}
@@ -83,13 +91,11 @@ class Playground extends IBaseField {
             span={12}
           >
             <EditorPanel
-              containerStyle={{
-                height: 240,
-              }}
+              {...baseEditorProps}
               title="data"
               value={
                 this.attrGetter("value")()
-                  || this.attrGetter("initialValue")()
+                  || this.attrGetter("defaultValue")()
               }
               onChange={this.attrSetter("value")}
             />
