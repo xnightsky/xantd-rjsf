@@ -13,18 +13,18 @@ import {
 
 function SwitchWidget(props) {
   const {
-    initialValue,
-    emptyValue,
+    defaultValue,
+    // emptyValue,
     value,
     onChange,
     ...restProps
   } = props;
-  // const rtValue = undefined !== value ? value : initialValue;
+  // const rtValue = undefined !== value ? value : defaultValue;
   const rtValue = setWidgetValueAndTriggerChange(
     {
       value,
-      initialValue,
-      emptyValue,
+      defaultValue,
+      // emptyValue,
       onChange,
     },
     props,

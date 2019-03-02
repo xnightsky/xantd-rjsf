@@ -1,41 +1,34 @@
 
+import {
+  getValueFromEvent as QBgetValueFromEvent,
+  getValueFromPreventEvent as QBgetValueFromPreventEvent,
+  preventEvent as QBpreventEvent,
+} from "../QuickBinder.jsx";
 
-export function getValueFromEvent(event) {
-  return (event && event.target) ? event.target.value : event;
-}
 
-
-export function getValueFromPreventEvent(e) {
-  if (e && e.target) {
-    preventEvent(e)
-  }
-  return getValueFromEvent(e);
-}
-
-export function preventEvent(e) {
-  e.preventDefault();
-  e.stopPropagation();
-}
+export const getValueFromEvent = QBgetValueFromEvent;
+export const getValueFromPreventEvent = QBgetValueFromPreventEvent;
+export const preventEvent = QBpreventEvent;
 
 
 export function setWidgetValue(
   {
     value = undefined,
-    initialValue = undefined,
-    emptyValue = undefined,
+    defaultValue = undefined,
+    // emptyValue = undefined,
     onChange = undefined,
   }
 ) {
-  // rtValue is undefined, set initialValue
-  // rtValue is auto convert bool false, set emptyValue
+  // rtValue is undefined, set defaultValue
   let rtValue = value;
-  if (undefined === rtValue && undefined !== initialValue) {
-    rtValue = initialValue;
+  if (undefined === rtValue && undefined !== defaultValue) {
+    rtValue = defaultValue;
   }
-  if (!rtValue && undefined !== emptyValue) {
-    rtValue = emptyValue;
-  }
-  // INFO: initialValue 会通过下次 value + onChange 循环赋值到 props.value
+  // // rtValue is auto convert bool false, set emptyValue
+  // if (!rtValue && undefined !== emptyValue) {
+  //   rtValue = emptyValue;
+  // }
+  // INFO: defaultValue 会通过下次 value + onChange 循环赋值到 props.value
   return rtValue;
 }
 
@@ -47,17 +40,15 @@ export function setWidgetValueAndTriggerChange(
   // 通过和 thisProps compare 解决 loop crash
   const {
     value = undefined,
-    initialValue = undefined,
-    emptyValue = undefined,
+    defaultValue = undefined,
+    // emptyValue = undefined,
     onChange = undefined,
   } = option;
   const rtValue = setWidgetValue(option);
   console.log("setWidgetValueAndTriggerChange", rtValue, thisProps.value)
   if (!_.isEqual(rtValue, thisProps.value)) {
-    debugger;
     onChange && requestAnimationFrame(
       () => {
-        debugger;
         onChange(rtValue);;
       }
     );
@@ -65,15 +56,64 @@ export function setWidgetValueAndTriggerChange(
   return rtValue;
 }
 
+setWidgetValueAndTriggerChange = setWidgetValue;
+
 
 export function setWidgetValueFromProps(props) {
   return setWidgetValueAndTriggerChange(
     {
       value: props.value,
-      initialValue: props.initialValue,
-      emptyValue: props.emptyValue,
+      defaultValue: props.defaultValue,
+      // emptyValue: props.emptyValue,
       onChange: props.onChange,
     },
     props,
   )
+}
+
+
+export class FNValve {
+  static debounce(
+    {
+      fn,
+      ctl = {}
+    }
+  ) {
+    const {
+      wait = 300,
+      options = {
+        maxWait: 3000
+      },
+    } = ctl;
+    return _.debounce(
+      fn,
+      wait,
+      options,
+    );
+  }
+
+  static debounceOnRAF(
+    {
+      fn,
+      ctl = {}
+    }
+  ) {
+    const {
+      wait = 300,
+      options = {
+        maxWait: 3000
+      },
+    } = ctl;
+    const debounceFN = _.debounce(
+      fn,
+      wait,
+      options,
+    );
+    return function () {
+      const refargs = Array.from(arguments);
+      requestAnimationFrame(() => {
+        debounceFN(...refargs);
+      })
+    };
+  }
 }

@@ -10,13 +10,16 @@ import {
   getDefaultRegistry,
 } from "../Registry.jsx";
 import IBaseField from "./IBaseField.jsx";
+import {
+  toDefault,
+} from "../schemaUtils.jsx"
 
 
 class SchemaField extends IBaseField {
   static defaultProps = {
     schema: {},
     uiSchema: {},
-    initialValue: undefined,
+    defaultValue: undefined,
     registry: undefined,
   };
 
@@ -31,6 +34,7 @@ class SchemaField extends IBaseField {
       schema,
       uiSchema,
       registry = getDefaultRegistry(),
+      defaultValue,
     } = this.props;
     const Field = getField(schema);
     const FieldTemplate = registry.FieldTemplate;
@@ -50,6 +54,7 @@ class SchemaField extends IBaseField {
             // ...this.getValueProps(null, false)
             ...this.getValueProps(null, true)
           }
+          defaultValue={undefined != defaultValue ? defaultValue : toDefault(schema)}
         >
         </Field>
       </FieldTemplate>

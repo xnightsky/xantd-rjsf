@@ -5,42 +5,26 @@ import {
   Input,
 } from "antd";
 
-import Value from "./IValueWidget.jsx";
+import IValueWidget from "./IValueWidget.jsx";
 
 
-class TextWidget extends Value {
+class TextWidget extends IValueWidget {
   static defaultProps = {
-    initialValue: undefined,
-    emptyValue: "",
+    defaultValue: undefined,
+    // emptyValue: "",
     value: undefined,
     onChange: undefined,
-    optimize: {
-      debounce: {
-        wait: 300,
-        options: { 'maxWait': 3000 }
-      },
-    }
   };
 
   constructor (props) {
     super (props);
     this.state = (this.state || {});
-    if (props.optimize && props.optimize.debounce) {
-      let debounceArgs = props.optimize.debounce
-      this.debounceTriggerChange = _.debounce(
-        this.triggerChange,
-        debounceArgs.wait,
-        debounceArgs.options,
-      );
-    } else {
-      this.debounceTriggerChange = null;
-    }
   }
 
   render() {
     const {
-      initialValue: _initialValue,
-      emptyValue: _emptyValue,
+      defaultValue: _defaultValue,
+      // emptyValue: _emptyValue,
       value: _value,
       onChange: _onChange,
       ...restProps

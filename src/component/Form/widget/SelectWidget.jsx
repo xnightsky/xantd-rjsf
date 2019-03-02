@@ -10,8 +10,8 @@ import Value from "./IValueWidget.jsx";
 
 class SelectWidget extends Value {
   static defaultProps = {
-    initialValue: undefined,
-    emptyValue: undefined,
+    defaultValue: undefined,
+    // emptyValue: undefined,
     value: undefined,
     onChange: undefined,
     enumOptions: [
@@ -29,8 +29,8 @@ class SelectWidget extends Value {
 
   render() {
     const {
-      initialValue,
-      emptyValue,
+      defaultValue,
+      // emptyValue,
       value: _value,
       onChange: _onChange,
       options:{

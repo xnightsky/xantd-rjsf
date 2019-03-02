@@ -2,34 +2,31 @@ import _ from "lodash";
 import React from "react";
 import update from "immutability-helper";
 
+import { verbose, } from "../gconfig.jsx";
 import {
   getValueFromEvent,
   // getValueFromPreventEvent,
 } from "../utils.jsx";
-import { verbose, } from "../gconfig.jsx";
-import {
-  clsUseStateAttr,
-  clsUseStatePath,
-} from "../../QuickBinder.jsx";
-
 
 
 class IBaseField extends React.Component {
   static defaultProps = {
-    initialValue: undefined,
+    defaultValue: undefined,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      value: undefined !== props.value ? props.value : props.initialValue,
+      // value: undefined !== props.value ? props.value : props.defaultValue,
+      value: props.value,
+      // defaultValue: props.defaultValue,
     };
   }
 
 
   // 如果无覆盖，自动使用默认 componentWillReceiveProps 比对
   componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(IBaseField.value, this.props.value)) {
+    if (!_.isEqual(nextProps.value, this.props.value)) {
       verbose > 0 && console.log("IBaseField.componentWillReceiveProps: !=", nextProps.value, this.props.value);
       this.setState({
         value: nextProps.value,
@@ -78,32 +75,38 @@ class IBaseField extends React.Component {
   }
 
   attrSetter(aname, callback = null) {
+    const rthis = this;
     return (event) => {
       const newAttr = getValueFromEvent(event);
-      const newState = "object" === typeof this.state.value ? update(
-        this.state,
-        {
-          value: {
-            $merge: {
-              [aname]: newAttr,
+      let newState = {};
+      if (rthis.state.value) {
+        newState = update(
+          rthis.state,
+          {
+            value: {
+              $merge: {
+                [aname]: newAttr,
+              }
             }
           }
-        }
-      ) : update(
-        this.state,
-        {
-          value: {
-            $set: {
-              [aname]: newAttr,
+        );
+      } else {
+        newState = update(
+          rthis.state,
+          {
+            value: {
+              $set: {
+                [aname]: newAttr,
+              }
             }
           }
-        }
-      );
-      this.setState(
+        );
+      }
+      rthis.setState(
         newState,
         () => {
           callback && callback();
-          this.triggerChange();
+          rthis.triggerChange();
         }
       )
     }
@@ -112,30 +115,21 @@ class IBaseField extends React.Component {
   getValueProps(attrName, bridge) {
     if (bridge) {
       return {
-        value: undefined !== this.props.value ? this.props.value : this.props.initialValue,
+        // value: undefined !== this.props.value ? this.props.value : this.props.defaultValue,
+        value: this.props.value,
         onChange: this.props.onChange,
       };
     }
 
     if (attrName) {
-      // return {
-      //   value: this.attrGetter(attrName)(),
-      //   onChange: this.attrSetter(attrName),
-      // };
-      const [ value, onChange, ] = clsUseStateAttr(this, attrName);
       return {
-        value,
-        onChange,
+        value: this.attrGetter(attrName)(),
+        onChange: this.attrSetter(attrName),
       };
     } else {
-      // return {
-      //   value: this.valueGetter()(),
-      //   onChange: this.valueSetter(),
-      // };
-      const [ value, onChange, ] = clsUseStateAttr(this, "value");
       return {
-        value,
-        onChange,
+        value: this.valueGetter()(),
+        onChange: this.valueSetter(),
       };
     }
   }

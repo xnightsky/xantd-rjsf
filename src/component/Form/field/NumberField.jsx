@@ -33,7 +33,7 @@ function NumberField(props) {
       options={{
         ...options,
       }}
-      initialValue={toDefault(schema)}
+      defaultValue={toDefault(schema)}
       {...restProps}
       onChange={(e) => {
         let evalue = getValueFromPreventEvent(e);

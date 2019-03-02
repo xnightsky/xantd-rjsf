@@ -34,7 +34,7 @@ function StringField(props) {
         ...options,
         ...enumOptions,
       }}
-      initialValue={toDefault(schema)}
+      defaultValue={toDefault(schema)}
       {...restProps}
     />
   );

@@ -9,12 +9,15 @@ import {
   Col,
 } from "antd";
 
+import { verbose, } from "../gconfig.jsx";
 import {
   preventEvent,
   getValueFromPreventEvent,
-  setWidgetValueAndTriggerChange,
 } from "../utils.jsx";
-import { verbose, } from "../gconfig.jsx";
+import {
+  getWidgetValueProps,
+  triggerWidgetDefaultValue,
+} from "../../QuickBinder.jsx";
 
 
 function getOptionsWithProps (props) {
@@ -58,33 +61,31 @@ class ArrayWidget extends React.Component {
   static defaultProps = {
     value: undefined,
     onChange: null,
+    format: (v) => {
+      return v ? v : [];
+    },
     options: getOptionsWithProps({}),
     itemOperation: {
       layout: "popover",
       // layout: "toolbar",
-    }
+    },
   };
 
   constructor(props) {
     super(props);
+    const rtProps = getWidgetValueProps(
+      {
+        value: props.value,
+        onChange: props.onChange,
+        defaultValue: props.defaultValue,
+        format: props.format,
+      }
+    );
+    rtProps.value = normalizeValueWithProps(rtProps.value, props);
     this.state = {
-      value: normalizeValueWithProps(
-        // (
-        //   (undefined !== props.value ? props.value : props.initialValue)
-        //     || []
-        // ),
-        setWidgetValueAndTriggerChange(
-          {
-            value: props.value,
-            initialValue: props.initialValue,
-            emptyValue: [],
-            onChange: props.onChange,
-          },
-          props,
-        ),
-        props
-      ),
+      ...rtProps,
     };
+    triggerWidgetDefaultValue(this.state, props);
   }
 
   componentDidMount() {
@@ -93,24 +94,19 @@ class ArrayWidget extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.value != this.props.value) {
       verbose > 0 && console.log("ArrayWidget.componentWillReceiveProps!=", nextProps.value, this.props.value);
+      const rtProps = getWidgetValueProps(
+        {
+          value: nextProps.value,
+          onChange: nextProps.onChange,
+          defaultValue: nextProps.defaultValue,
+          format: nextProps.format,
+        }
+      );
+      rtProps.value = normalizeValueWithProps(rtProps.value, nextProps);
       this.setState({
-        // value: normalizeValueWithProps(
-        //   nextProps.value,
-        //   nextProps
-        // ),
-        value: normalizeValueWithProps(
-          setWidgetValueAndTriggerChange(
-            {
-              value: nextProps.value,
-              initialValue: nextProps.initialValue,
-              emptyValue: [],
-              onChange: nextProps.onChange,
-            },
-            this.props,
-          ),
-          nextProps
-        ),
+        ...rtProps,
       });
+      // triggerWidgetDefaultValue(this.state, nextProps);
     }
   }
 
@@ -342,7 +338,7 @@ class ArrayWidget extends React.Component {
       addable,
     } = getOptionsWithProps(this.props);
     const {
-      value: value,
+      value,
     } = this.state;
     //
     const rtValueList = value || [];

@@ -29,7 +29,7 @@ function BooleanField(props) {
       options={{
         ...options,
       }}
-      initialValue={toDefault(schema)}
+      defaultValue={toDefault(schema)}
       {...restProps}
     />
   );

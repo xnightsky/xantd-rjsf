@@ -11,7 +11,7 @@ import {
   isMultipleChoices,
   toEnumOptions,
   isFixedArray,
-} from "../schemaUtils.jsx"
+} from "../schemaUtils.jsx";
 
 
 function renderDefaultArrayField(props) {
@@ -19,6 +19,7 @@ function renderDefaultArrayField(props) {
     schema,
     uiSchema,
     registry = getDefaultRegistry(),
+    defaultValue,
     ...restProps
   } = props;
   const {
@@ -34,7 +35,7 @@ function renderDefaultArrayField(props) {
       options={{
         minItems: schema.minItems,
       }}
-      initialValue={toDefault(schema)}
+      defaultValue={undefined != defaultValue ? defaultValue : toDefault(schema)}
       {...restProps}
     >
     {
@@ -75,6 +76,7 @@ function renderUniqueEnumArrayField(props, options = {}) {
     schema,
     uiSchema,
     // registry = getDefaultRegistry(),
+    defaultValue,
     ...restProps
   } = props;
   const Widget = getWidget(schema, "checkbox");
@@ -85,7 +87,7 @@ function renderUniqueEnumArrayField(props, options = {}) {
           ...options,
           minItems: schema.minItems,
         }}
-        initialValue={toDefault(schema)}
+        defaultValue={undefined != defaultValue ? defaultValue : toDefault(schema)}
         {...restProps}
       />
     );
@@ -97,6 +99,7 @@ function renderFixedArray(props) {
     schema,
     uiSchema,
     registry = getDefaultRegistry(),
+    defaultValue,
     ...restProps
   } = props;
   const {
@@ -125,7 +128,7 @@ function renderFixedArray(props) {
         orderable: fixable,
         minLength: itemSchemaListLength,
       }}
-      initialValue={toDefault(schema)}
+      defaultValue={undefined != defaultValue ? defaultValue : toDefault(schema)}
       {...restProps}
     >
     {

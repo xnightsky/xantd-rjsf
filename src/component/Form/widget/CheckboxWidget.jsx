@@ -5,13 +5,12 @@ import {
   Checkbox,
 } from "antd";
 
-import Value from "./IValueWidget.jsx";
+import IValueWidget from "./IValueWidget.jsx";
 
 
-class CheckboxWidget extends Value {
+class CheckboxWidget extends IValueWidget {
   static defaultProps = {
-    initialValue: undefined,
-    emptyValue: undefined,
+    defaultValue: undefined,
     value: undefined,
     onChange: undefined,
     options: {
@@ -31,8 +30,7 @@ class CheckboxWidget extends Value {
 
   render() {
     const {
-      initialValue,
-      emptyValue,
+      defaultValue,
       value: _value,
       onChange: _onChange,
       options: {
