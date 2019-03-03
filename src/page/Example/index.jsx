@@ -6,14 +6,13 @@ import {
   Col,
 } from "antd";
 
-// import fields from "../../component/Form/field";
-import fields from "$src/component/Form/field";
+const {
+  field: {
+    SchemaField,
+  } = {},
+} = require("$src/lib.js");
 import config from "./config";
 import Playground from "./Playground";
-
-
-// console.log("<fields>", fields);
-const SchemaField = fields.SchemaField;
 
 
 const barHeight = 50;
