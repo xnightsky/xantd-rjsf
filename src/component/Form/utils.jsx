@@ -45,7 +45,7 @@ export function setWidgetValueAndTriggerChange(
     onChange = undefined,
   } = option;
   const rtValue = setWidgetValue(option);
-  console.log("setWidgetValueAndTriggerChange", rtValue, thisProps.value)
+  // console.log("setWidgetValueAndTriggerChange", rtValue, thisProps.value)
   if (!_.isEqual(rtValue, thisProps.value)) {
     onChange && requestAnimationFrame(
       () => {
@@ -56,7 +56,9 @@ export function setWidgetValueAndTriggerChange(
   return rtValue;
 }
 
-setWidgetValueAndTriggerChange = setWidgetValue;
+
+// DEBUG
+// setWidgetValueAndTriggerChange = setWidgetValue;
 
 
 export function setWidgetValueFromProps(props) {

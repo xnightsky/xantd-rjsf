@@ -9,20 +9,25 @@ import {
 
 export default class AjvRootValidator extends React.Component {
 
-  getStateFromProps() {
+  renderFromProps(props = this.props) {
     const {
       schema,
       value,
       ...restProps
-    } = this.props;
+    } = props;
+    const vresult = ajvValidate(value, schema);
+    console.log("[AjvRootValidator]: vresult", vresult);
+    const {
+      errorSchema,
+    } = vresult;
     return {
-      schema,
-      value,
+      ...props,
+      errorSchema,
     };
   }
 
   render () {
-    const { children, ...restProps } = this.props;
+    const { children, ...restProps } = this.renderFromProps();
     if (children) {
       return React.cloneElement(
         children,

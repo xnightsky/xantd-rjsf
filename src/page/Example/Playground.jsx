@@ -22,7 +22,6 @@ const EditorPanel = ({
   return (
     <div
       data-editor-container
-      bordered={false}
       className="ant-card ant-card-bordered"
       style={{
         overflow: "hidden",

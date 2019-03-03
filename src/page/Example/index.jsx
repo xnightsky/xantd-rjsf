@@ -10,12 +10,29 @@ const {
   field: {
     SchemaField,
   } = {},
+  validate: {
+    AjvRootValidator,
+  } = {},
 } = require("$src/lib.js");
 import config from "./config";
 import Playground from "./Playground";
 
 
 const barHeight = 50;
+
+// console.log("[lib.field.SchemaField]:", SchemaField);
+// console.log("[lib.validate.AjvRootValidator]:", AjvRootValidator);
+//
+// const JsonField = SchemaField;
+const JsonField = (props) => {
+  return (
+    <AjvRootValidator
+      {...props}
+    >
+      <SchemaField />
+    </AjvRootValidator>
+  );
+};
 
 
 class Example extends React.Component {
@@ -112,7 +129,7 @@ class Example extends React.Component {
           >
           {
             value ? (
-              <SchemaField
+              <JsonField
                 key={key}
                 defaultValue={value.defaultValue}
                 value={value.value}
