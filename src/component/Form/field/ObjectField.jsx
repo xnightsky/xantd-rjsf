@@ -19,6 +19,7 @@ class ObjectField extends IBaseField {
     schema: {},
     uiSchema: {},
     registry: undefined,
+    errorSchema: {},
   };
 
   constructor (props) {
@@ -49,6 +50,7 @@ class ObjectField extends IBaseField {
       uiSchema,
       registry = getDefaultRegistry(),
       defaultValue = {},
+      errorSchema = {},
     } = this.props;
     const {
       properties = {},
@@ -60,7 +62,8 @@ class ObjectField extends IBaseField {
       properties,
       (ischema, ikey) => {
         const iuiSchema = uiSchema[ikey];
-        const iDefaultValue = defaultValue[ikey];
+        const idefaultValue = defaultValue[ikey];
+        const ierrorSchema = errorSchema[ikey];
         const irestProps = {
           key: ikey,
           name: ikey,
@@ -68,7 +71,8 @@ class ObjectField extends IBaseField {
           uiSchema: iuiSchema,
           registry,
           ...this.getValueProps(ikey, false),
-          defaultValue: iDefaultValue,
+          defaultValue: idefaultValue,
+          errorSchema: ierrorSchema,
         };
         return (
           <SchemaFieldTemplate

@@ -1,15 +1,38 @@
 import React from "react";
 import {
-  Form,
   Card,
+  Row,
+  Col,
 } from "antd";
+
+
+function renderErrorList(errorSchema) {
+  if (errorSchema && errorSchema.__errors) {
+    return errorSchema.__errors.map((ierr) => {
+      return (
+        <div
+          style={{
+            color: "red",
+          }}
+        >
+        {
+          `${ierr}`
+        }
+        </div>
+      );
+    })
+  } else {
+    return null
+  }
+}
 
 
 const DefaultFieldTemplate = (props) => {
   const {
+    children,
     name,
     schema,
-    children,
+    errorSchema,
   } = props;
   const {
     // type,
@@ -17,54 +40,52 @@ const DefaultFieldTemplate = (props) => {
     description,
   } = schema;
   const rtTitle = title || name;
-  const itemProps = {
-    ...(
-      rtTitle ? {
-        label: (
-          <strong>
-          {
-            rtTitle
-          }
-          </strong>
-        ),
-      } : {}
-    )
-  };
-
-  return (
-    <Form.Item
-      {...itemProps}
-    >
+  return [
+    description,
+    <Row>
       {
-        description
+        rtTitle ? (
+          <Col>
+            <strong>
+            {
+              rtTitle
+            }
+            :
+            </strong>
+          </Col>
+        ) : null
       }
-      {
-        // ((type_) => {
-        //   switch(type_) {
-        //     case "object":
-        //       return (
-        //         <Card>
-        //         {
-        //           children
-        //         }
-        //         </Card>
-        //       )
-        //     default:
-        //       return children;
-        //   }
-        // })(type)
-      }
+      <Col>
       {
         children
       }
-    </Form.Item>
-  );
+      {
+        renderErrorList(errorSchema)
+      }
+      </Col>
+    </Row>
+  ];
+  // ((type_) => {
+  //   switch(type_) {
+  //     case "object":
+  //       return (
+  //         <Card>
+  //         {
+  //           children
+  //         }
+  //         </Card>
+  //       )
+  //     default:
+  //       return children;
+  //   }
+  // })(type)
 };
 
 
 const DefaultArrayFieldTemplate = ({
-  schema,
   children,
+  schema,
+  errorShema,
 }) => {
   switch (schema && schema.type) {
     case "object":
@@ -87,10 +108,11 @@ const DefaultArrayFieldTemplate = ({
 
 const DefaultSchemaFieldTemplate = (
   {
+    children,
     name,
     schema,
     registry,
-    children,
+    errorShema,
     ...restProps
   }
 ) => {

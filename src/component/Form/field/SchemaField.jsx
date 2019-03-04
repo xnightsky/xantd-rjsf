@@ -35,6 +35,7 @@ class SchemaField extends IBaseField {
       uiSchema,
       registry = getDefaultRegistry(),
       defaultValue,
+      errorSchema,
     } = this.props;
     const Field = getField(schema);
     const FieldTemplate = registry.FieldTemplate;
@@ -44,12 +45,14 @@ class SchemaField extends IBaseField {
         name={name}
         schema={schema}
         uiSchema={uiSchema}
+        errorSchema={errorSchema}
       >
         <Field
           key={name}
           name={name}
           schema={schema}
           uiSchema={uiSchema}
+          errorSchema={errorSchema}
           {
             // ...this.getValueProps(null, false)
             ...this.getValueProps(null, true)

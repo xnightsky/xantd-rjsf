@@ -1,14 +1,15 @@
 
 import {
-  getValueFromEvent as QBgetValueFromEvent,
-  getValueFromPreventEvent as QBgetValueFromPreventEvent,
-  preventEvent as QBpreventEvent,
+  getValueFromEvent as QB_getValueFromEvent,
+  getValueFromPreventEvent as QB_getValueFromPreventEvent,
+  preventEvent as QB_preventEvent,
+  getWidgetValueProps as QB_getWidgetValueProps,
 } from "../QuickBinder.jsx";
 
 
-export const getValueFromEvent = QBgetValueFromEvent;
-export const getValueFromPreventEvent = QBgetValueFromPreventEvent;
-export const preventEvent = QBpreventEvent;
+export const getValueFromEvent = QB_getValueFromEvent;
+export const getValueFromPreventEvent = QB_getValueFromPreventEvent;
+export const preventEvent = QB_preventEvent;
 
 
 export function setWidgetValue(
@@ -19,15 +20,26 @@ export function setWidgetValue(
     onChange = undefined,
   }
 ) {
-  // rtValue is undefined, set defaultValue
-  let rtValue = value;
-  if (undefined === rtValue && undefined !== defaultValue) {
-    rtValue = defaultValue;
-  }
-  // // rtValue is auto convert bool false, set emptyValue
-  // if (!rtValue && undefined !== emptyValue) {
-  //   rtValue = emptyValue;
+  // // rtValue is undefined, set defaultValue
+  // let rtValue = value;
+  // if (undefined === rtValue && undefined !== defaultValue) {
+  //   rtValue = defaultValue;
   // }
+  // // // rtValue is auto convert bool false, set emptyValue
+  // // if (!rtValue && undefined !== emptyValue) {
+  // //   rtValue = emptyValue;
+  // // }
+
+  const {
+    value: rtValue,
+  } = QB_getWidgetValueProps(
+    {
+      value,
+      defaultValue,
+      onChange,
+    }
+  );
+
   // INFO: defaultValue 会通过下次 value + onChange 循环赋值到 props.value
   return rtValue;
 }

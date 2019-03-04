@@ -14,16 +14,19 @@ export function ajvValidate (value, schema) {
   const ajv = new Ajv({
     allErrors: true,
   });
-  const vresult = ajv.validate(schema, value || {})
-  let errorSchema = {}
+  const vresult = ajv.validate(schema, value || {});
+  let errorSchema = {};
+  let newErrors = {};
   if (!vresult) {
     AjvLocalize && AjvLocalize.zh(ajv.errors);
-    let errors = transformAjvErrors(ajv.errors)
-    errorSchema = toErrorSchema(errors)
+    let errors = transformAjvErrors(ajv.errors);
+    errorSchema = toErrorSchema(errors);
+    // newErrors = toErrorList(errorSchema);
   }
   return {
     result: vresult,
     ajv,
+    // errors: newErrors,
     errorSchema,
   };
 }
@@ -53,6 +56,7 @@ function transformAjvErrors(errors = []) {
     };
   });
 }
+//
 function toErrorSchema(errors) {
   // Transforms a ajv validation errors list:
   // [
@@ -103,3 +107,24 @@ function toErrorSchema(errors) {
     return errorSchema;
   }, {});
 }
+//
+// function toErrorList(errorSchema, fieldName = "root") {
+//   // XXX: We should transform fieldName as a full field path string.
+//   let errorList = [];
+//   // if ("__errors" in errorSchema) {
+//     if ("__errors" in errorSchema) {
+//     errorList = errorList.concat(
+//       errorSchema.__errors.map(stack => {
+//         return {
+//           stack: `${fieldName}: ${stack}`,
+//         };
+//       })
+//     );
+//   }
+//   return Object.keys(errorSchema).reduce((acc, key) => {
+//     if (key !== "__errors") {
+//       acc = acc.concat(toErrorList(errorSchema[key], key));
+//     }
+//     return acc;
+//   }, errorList);
+// }
