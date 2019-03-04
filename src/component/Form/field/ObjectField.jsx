@@ -12,7 +12,6 @@ import {
 } from "../utils.jsx";
 
 
-
 class ObjectField extends IBaseField {
   static defaultProps = {
     defaultValue: undefined,
@@ -62,7 +61,8 @@ class ObjectField extends IBaseField {
       properties,
       (ischema, ikey) => {
         const iuiSchema = uiSchema[ikey];
-        const idefaultValue = defaultValue[ikey];
+        // INFO: defaultValue 转换到 value, 不再下放
+        // const idefaultValue = defaultValue[ikey];
         const ierrorSchema = errorSchema[ikey];
         const irestProps = {
           key: ikey,
@@ -71,7 +71,7 @@ class ObjectField extends IBaseField {
           uiSchema: iuiSchema,
           registry,
           ...this.getValueProps(ikey, false),
-          defaultValue: idefaultValue,
+          // defaultValue: idefaultValue,
           errorSchema: ierrorSchema,
         };
         return (

@@ -7,6 +7,10 @@ import {
   getValueFromEvent,
   // getValueFromPreventEvent,
 } from "../utils.jsx";
+import {
+  getWidgetValueProps,
+  // triggerWidgetDefaultValue,
+} from "../../QuickBinder.jsx";
 
 
 class IBaseField extends React.Component {
@@ -16,11 +20,18 @@ class IBaseField extends React.Component {
 
   constructor(props) {
     super(props);
+    const rtProps = getWidgetValueProps(
+      {
+        value: props.value,
+        onChange: props.onChange,
+        defaultValue: props.defaultValue,
+        format: props.format,
+      }
+    );
     this.state = {
-      // value: undefined !== props.value ? props.value : props.defaultValue,
-      value: props.value,
-      // defaultValue: props.defaultValue,
+      ...rtProps,
     };
+    // triggerWidgetDefaultValue(this.state, props);
   }
 
 
@@ -28,8 +39,17 @@ class IBaseField extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (!_.isEqual(nextProps.value, this.props.value)) {
       verbose > 0 && console.log("IBaseField.componentWillReceiveProps: !=", nextProps.value, this.props.value);
+      const rtProps = getWidgetValueProps(
+        {
+          value: nextProps.value,
+          onChange: nextProps.onChange,
+          defaultValue: nextProps.defaultValue,
+          format: nextProps.format,
+        }
+      );
       this.setState({
-        value: nextProps.value,
+        // value: nextProps.value,
+        ...rtProps,
       });
     }
   }
