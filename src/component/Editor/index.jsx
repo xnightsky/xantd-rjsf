@@ -40,7 +40,7 @@ function JSONEditor(
       theme="vs"
       options={{
         minimap: null,
-        automaticLayout: true,
+        // automaticLayout: true,
         scrollBeyondLastLine: false,
         ...options,
       }}
