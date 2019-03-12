@@ -19,33 +19,34 @@ console.log("MONACO_DIR", MONACO_DIR);
 
 
 module.exports = {
-  module: {
-    rules: [
-      // {
-      //   test: /\.html$/,
-      //   use: ['file?name=[name].[ext]'],
-      //   include: [MONACO_DIR],
-      // },
-      // {
-      //   test: /\.css$/,
-      //   include: [MONACO_DIR],
-      //   use: ['style-loader', 'css-loader'],
-      // },
-      // {
-      //   test: /\.js$/,
-      //   include: [MONACO_DIR],
-      //   use: {
-      //     loader: 'babel-loader',
-      //     // loader: parallel ? 'happypack/loader?id=happyBabel' : 'babel-loader',
-      //   },
-      // },
-    ]
-  },
+  // module: {
+  //   rules: [
+  //     {
+  //       test: /\.html$/,
+  //       use: ['file?name=[name].[ext]'],
+  //       include: [MONACO_DIR],
+  //     },
+  //     {
+  //       test: /\.css$/,
+  //       include: [MONACO_DIR],
+  //       use: ['style-loader', 'css-loader'],
+  //     },
+  //     {
+  //       test: /\.js$/,
+  //       include: [MONACO_DIR],
+  //       use: {
+  //         loader: 'babel-loader',
+  //         // loader: parallel ? 'happypack/loader?id=happyBabel' : 'babel-loader',
+  //       },
+  //     },
+  //   ]
+  // },
   plugins: [
     new MonacoWebpackPlugin({
       languages: [
         "javascript", "typescript", "html", "json"
       ],
+      output: './static/js/monaco-editor/',
     })
   ],
   // optimization: devMode ? {} : {
